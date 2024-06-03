@@ -42,8 +42,8 @@ const warpStreamTheme = {
         //initial velocity of particles
         impulse: {
             pow: 0,
-            min: 0.2,
-            max: 0.45
+            min: 0.45,
+            max: 0.85
         }
     }
 };

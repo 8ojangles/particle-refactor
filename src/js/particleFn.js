@@ -10,4 +10,10 @@ const particleFn = {
 	killParticle
 };
 
-export{ particleFn };
+export{
+	particleFn,
+	checkParticleKillConditions, 
+	createPerParticleAttributes,
+	updateParticle,
+	killParticle
+};
