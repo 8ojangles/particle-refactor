@@ -1,31 +1,16 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>ESBuild project templates</title>
-        <link rel="stylesheet" href="./scss/main.css" />
-    </head>
-    <body>
-        <main>
-            <div class="page page--wrapper">
-                {% include "./templates/header.html" %}
-                <div class="test-container">
-                    <div class="aspect-ratio-handler">
-                        <div class="anim-component">
-                            <div class="scene scene-1">
-                                <div class="catapult">
-                                    <div class="catapult-structure"></div>
-                                    <div class="catapult-mechanics"></div>
-                                </div>
-                            </div>
-                            {# <div class="scene scene-2">
-                                <div class="box"></div>
-                            </div> #}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <script src="./js/main.js"></script>
-    </body>
-</html>
+{% extends "./templates/base/base.html" %}
+
+{% block pageTitle %}
+<title>Particle Engine</title>
+{% endblock %}
+
+{% block pageContent %}
+    <!-- Page contents -->
+
+    <div class="canvas-container">
+		<canvas id="test-base"></canvas>
+	</div>
+
+	<div id="warpStarImageCanvas"></div>
+
+{% endblock %}

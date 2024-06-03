@@ -1,7 +1,7 @@
 {
-  "name": "project-template-esbuild",
+  "name": "particle-refactor",
   "version": "1.0.0",
-  "description": "Template project using esbuild",
+  "description": "HTML Canvas Particle engine running on ESBuild",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/8ojangles/project-template-esbuild.git"
+    "url": "git+https://github.com/8ojangles/particle-refactor.git"
   },
   "keywords": [
     "Project.",
@@ -35,7 +35,9 @@
     "esbuild-plugin-copy": "^2.1.1",
     "esbuild-sass-plugin": "^3.2.0",
     "htmlnano": "^2.1.0",
-    "svgo": "^3.2.0"
+    "svgo": "^3.2.0",
+    "dbly-linked-list": "^0.3.4",
+    "object-path": "^0.11.4"
   },
   "dependencies": {
     "nunjucks": "^3.2.4"

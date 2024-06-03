@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 @mixin bg-hilite() {
 	background-color: rgba( 255, 0, 0, 0.2 );
 }
@@ -28,13 +26,6 @@ $dark-gradient-init-opacity: 0.4;
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
 }
 
-@mixin create-color-gradient($color-name1, $color-name2, $bias: 0%) {
-	background: -moz-linear-gradient(top, rgba( $color-name1, 1 ) $bias, rgba( $color-name2, 1 ) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, rgba( $color-name1, 1 ) $bias,rgba( $color-name2, 1 ) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, rgba( $color-name1, 1 ) $bias,rgba( $color-name2, 1 ) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
-}
-
 @mixin flex-centered-children() {
 	display: flex;
 	align-items: center;
@@ -44,15 +35,4 @@ $dark-gradient-init-opacity: 0.4;
 @mixin margin-centered() {
 	margin-left: auto;
 	margin-right: auto;
-}
-
-/// Remove the unit of a length
-/// @param {Number} $number - Number to remove unit from
-/// @return {Number} - Unitless number
-@function strip-unit($number) {
-	@if type-of($number) == 'number' and not unitless($number) {
-		@return math.div($number, $number * 0 + 1);
-	}
-
-    @return $number;
 }

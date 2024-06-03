@@ -1,3 +1,4 @@
+import { entryPoints } from './entry-point.js';
 import { sassPlugin } from 'esbuild-sass-plugin';
 import { nunjucksPlugin } from './esbuild-plugin-nunjucks.js';
 import { jsonbakePlugin } from './esbuild-plugin-jsonbake/esbuild-plugin-jsonbake.js';
@@ -9,10 +10,10 @@ export function createBuildSettings(options) {
     return {
         logLevel: "info",
         entryPoints: [
-            './src/js/main.js',
-            './src/scss/main.scss',
-            './src/**/*.html',
-            './src/page-data/**/*.json',
+            entryPoints.js,
+            entryPoints.scss,
+            entryPoints.html,
+            entryPoints.pageData
         ],
         outdir: './dist/',
         bundle: true,
@@ -67,7 +68,7 @@ export function createBuildSettings(options) {
         minify: true,
         sourcemap: true,
         assetNames: '[name]',
-        target: ['chrome58', 'firefox57', 'safari11', 'edge16'],
+        target: ['chrome100', 'firefox100', 'safari15', 'edge100'],
         ...options
     };
 }
