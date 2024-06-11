@@ -1,7 +1,7 @@
 // utilities
 import { mathUtils } from './mathUtils.js';
 
-function EmitterEntity(emitterName, emitterTheme, particleOpts, emitFn) {
+function EmitterEntity(emitterName, emitterTheme, particleOpts, emitFn, entityStore, pool) {
 
     this.name = emitterName;
 
@@ -21,6 +21,8 @@ function EmitterEntity(emitterName, emitterTheme, particleOpts, emitFn) {
     // emitter master clock init
     this.localClock = 0;
     this.localClockRunning = false;
+    this.store = entityStore;
+    this.pool = pool;
     this.emitFn = emitFn;
     // emitter life
     this.active = emitter.active;
@@ -135,7 +137,7 @@ EmitterEntity.prototype.triggerEmitter = function (triggerOptions) {
 
     var emitAmount = mathUtils.randomInteger(self.rateMin, self.rateMax);
 
-    self.emitFn(thisX, thisY, emitAmount, self.emissionOpts, self.particleOpts);
+    self.emitFn(thisX, thisY, emitAmount, self.emissionOpts, self.particleOpts, self.store, self.pool);
 
     if (self.repeatRate > 0) {
         self.active = 1;
@@ -152,6 +154,11 @@ EmitterEntity.prototype.renderEmitter = function (context) {
     context.strokeCircle(this.x, this.y, 10, context);
 };
 
-EmitterEntity.prototype.killEmitter = function () {};
+EmitterEntity.prototype.killEmitter = function(store) {
+    const emmiterIndex = store.findIndex((x) => x.name === this.name);
+    if (emmiterIndex !== -1) {
+        store.splice(emmiterIndex, 1);
+    }
+};
 
 export { EmitterEntity };

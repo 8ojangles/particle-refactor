@@ -12,13 +12,13 @@ import { linkCreationAttributes } from './linkCreationAttributes.js';
 import { renderProfiles } from './renderProfiles.js';
 import { colorProfiles } from './colorProfiles.js';
 
-var warpStarTheme = {
+const warpStarTheme = {
     contextBlendingMode: 'source-over',
     active: 1,
     life: { min: 50, max: 100 },
     angle: { min: 0, max: 2 },
     // velAcceleration: 1.05,
-    velAcceleration: { min: 1.001, max: 1.015 },
+    velAcceleration: { min: 1.005, max: 1.03 },
     magDecay: 1,
     radius: { min: 1, max: 1.5 },
     targetRadius: { min: 4, max: 20 },

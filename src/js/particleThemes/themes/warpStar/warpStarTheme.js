@@ -81,34 +81,28 @@ var warpStarTheme = {
             var flareSin = Math.sin( flareAngle );
 
             // var invertedFlareAngle = trig.angle(x, y, 960, 469);
-
-
             context.save();
+            context.translate(x, y);
+            // light glare horizontal
+            var opacity1 = p.color4Data.a * 0.15;
+            var shineRand = mathUtils.randomInteger(5, 10);
+            var shineGrd = context.createRadialGradient(0, 0, 0, 0, 0, 800);
+            shineGrd.addColorStop(0, "rgba( 255,255, 255, " + opacity1 + " )");
+            shineGrd.addColorStop(1, "rgba( 255, 255, 255, 0 )");
+            context.scale(shineRand * opacity1, 0.005);
+            context.fillStyle = shineGrd;
 
-                context.translate(x, y);
+            context.fillCircle(0, 0, 800, context);
+            context.scale(0.005, shineRand);
+            context.fillCircle(0, 0, 800, context);
 
-                // light glare horizontal
-                var opacity1 = p.color4Data.a * 0.15;
-                var shineRand = mathUtils.randomInteger(5, 10);
-                var shineGrd = context.createRadialGradient(0, 0, 0, 0, 0, 800);
-                shineGrd.addColorStop(0, "rgba( 255,255, 255, " + opacity1 + " )");
-                shineGrd.addColorStop(1, "rgba( 255, 255, 255, 0 )");
-                context.scale(shineRand * opacity1, 0.005);
-                context.fillStyle = shineGrd;
-
-                context.fillCircle(0, 0, 800, context);
-                context.scale(0.005, shineRand);
-                context.fillCircle(0, 0, 800, context);
-
-
-                context.rotate( 1.5 );
-                context.fillCircle(0, 0, 800, context);
-                context.rotate( 1 );
-                context.fillCircle(0, 0, 800, context);
-                context.rotate( -0.5 );
+            context.rotate( 1.5 );
+            context.fillCircle(0, 0, 800, context);
+            context.rotate( 1 );
+            context.fillCircle(0, 0, 800, context);
+            context.rotate( -0.5 );
 
             context.restore();
-
 
             // big flare
             var opacity2 = p.color4Data.a * 0.05;

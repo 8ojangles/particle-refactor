@@ -90,4 +90,13 @@ const debug = {
     }
 };
 
-export { debug, lastCalledTime };
+function displayDebugging(canvasEl) {
+    const { el, ctx } = canvasEl;
+    // ctx.globalAlpha = 1;
+    // debug.debugOutput(el, ctx, 'Animation Counter: ', counter, 0);
+    // debug.debugOutput(el, ctx, 'Particle Pool: ', entityStore.length, 1);
+    // debug.debugOutput(el, ctx, 'Live Entities: ', runtimeConfig.liveEntityCount, 2, { min: entityStore.length, max: 0 });
+    debug.debugOutput(el, ctx, 'FPS: ', Math.round(debug.calculateFps()), 3, { min: 0, max: 60 });
+}
+
+export { debug, displayDebugging, lastCalledTime };

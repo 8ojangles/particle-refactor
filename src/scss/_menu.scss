@@ -1,0 +1,79 @@
+$menu-bg: rgb(0, 100, 150);
+$button-bg: rgb(0, 63, 95);
+$button-bg-hover: rgb(0, 160, 240);
+$button-bg-selected: rgb(0, 37, 56);
+
+$section-title-size: 16px;
+$section-button-text-size: 14px;
+
+.menu {
+    position: absolute;
+    width: 20%;
+    min-width: 300px;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    background: $menu-bg;
+
+    p {
+        font-size: $section-title-size;
+        color: white;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        li {
+            width: 100%;
+            background: $button-bg;
+            color: white;
+            font-size: $section-button-text-size;
+            padding: 10px;
+            cursor: pointer;
+            margin-bottom: 1px;
+            &:hover:not(.is-selected) {
+                background: $button-bg-hover;
+            }
+
+            &.is-selected {
+                background: $button-bg-selected;
+                cursor: text;
+            }
+        }
+    }
+
+    .btn-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background: $button-bg;
+            border: none;
+            color: white;
+            font-size: $section-button-text-size;
+            cursor: pointer;
+
+            &:hover:not(.is-selected) {
+                background: $button-bg-hover;
+            }
+
+            &.is-selected {
+                background: $button-bg-selected;
+                cursor: text;
+            }
+        }
+    }
+
+
+}

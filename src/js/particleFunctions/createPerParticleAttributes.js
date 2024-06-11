@@ -31,8 +31,8 @@ function createAnimationTracks( arr, ppa ) {
             }
 
             var duration = 60 * t.duration;
-            // let life = ppa.lifeSpan;
-            // t.duration === 'life' ? duration = life : t.duration < 1 ? duration = life * t.duration : t.duration > 1 ? duration = life : false;
+            let life = ppa.lifeSpan;
+            t.duration === 'life' ? duration = life : t.duration < 1 ? duration = life * t.duration : t.duration > 1 ? duration = life : false;
 
             let thisAnim = {
                 animName: t.animName,
@@ -63,7 +63,7 @@ function linkCreationAttributes( item ) {
 }
 
 
-var createPerParticleAttributes = function createPerParticleAttributes(x, y, emissionOpts, perParticleOpts) {
+function createPerParticleAttributes(x, y, emissionOpts, perParticleOpts) {
     // let themed = perParticleOpts.theme || themes.reset;
 
     // direct particle options from theme

@@ -12,8 +12,8 @@ const warpStreamTheme = {
       // emission rate config (per cycle ( frame ) )
     emission: {
         rate: {
-            min: 4,
-            max: 10,
+            min: 1,
+            max: 3,
             decay: {
                 rate: 0,
                 decayMax: 0
@@ -42,8 +42,8 @@ const warpStreamTheme = {
         //initial velocity of particles
         impulse: {
             pow: 0,
-            min: 0.45,
-            max: 0.85
+            min: 1.25,
+            max: 2
         }
     }
 };

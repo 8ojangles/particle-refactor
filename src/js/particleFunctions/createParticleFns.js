@@ -1,6 +1,8 @@
-import { updateParticle, killParticle, createPerParticleAttributes } from './../particleFn.js';
+import { updateParticle } from './updateParticle.js';
+import { killParticle } from './killParticle.js';
+import { createPerParticleAttributes } from './createPerParticleAttributes.js';
 
-function setParticleAttributes(p, ppa) {
+function setParticleAttributes(p, ppa, emitterArr) {
     p.isAlive = ppa.active;
     p.lifeSpan = ppa.lifeSpan;
     p.currLife = ppa.lifeSpan;
@@ -27,22 +29,29 @@ function setParticleAttributes(p, ppa) {
     p.killConditions = ppa.killConditions;
     p.customAttributes = ppa.customAttributes;
     p.animationTracks = ppa.animationTracks;
-    p.update = updateParticle;
     p.reincarnate = reincarnateParticle;
     p.kill = killParticle;
     p.render = ppa.renderFN;
     p.events = ppa.events;
 }
 
-function createLiveParticle(thisX, thisY, idx, emissionOpts, particleOpts) {
+function createLiveParticle(thisX, thisY, idx, emissionOpts, particleOpts, emitterArr) {
     var newParticle = {};
     newParticle.idx = idx;
-    setParticleAttributes( newParticle, createPerParticleAttributes( thisX, thisY, emissionOpts, particleOpts ) );
+    setParticleAttributes(
+        newParticle,
+        createPerParticleAttributes( thisX, thisY, emissionOpts, particleOpts ),
+        emitterArr
+    );
     return newParticle;
 }
 
-function reincarnateParticle(thisX, thisY, emissionOpts, particleOptions) {
-    setParticleAttributes(this, createPerParticleAttributes(thisX, thisY, emissionOpts, particleOptions));
+function reincarnateParticle(thisX, thisY, emissionOpts, particleOptions, emitterArr) {
+    setParticleAttributes(
+        this,
+        createPerParticleAttributes(thisX, thisY, emissionOpts, particleOptions),
+        emitterArr
+    );
 }
 
 export {

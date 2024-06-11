@@ -15,7 +15,7 @@ const animationTracks = [
         param: 'globalAlpha',
         baseAmount: 0,
         targetValuePath: 1,
-        duration: 4,
+        duration: 2,
         easing: 'easeInCubic',
         linkedAnim: false
     }

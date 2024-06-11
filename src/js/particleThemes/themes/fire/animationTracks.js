@@ -5,7 +5,7 @@ const animationTracks = [
 		param: 'r',
 		baseAmount: 'initR',
 		targetValuePath: 'tR',
-		// targetAmount: 0.00002,
+		targetAmount: 0.00002,
 		duration: 'life',
 		easing: 'easeInExpo',
 		linkedAnim: false
