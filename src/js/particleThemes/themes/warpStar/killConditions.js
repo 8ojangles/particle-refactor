@@ -1,6 +1,13 @@
 const killConditions = {
     boundaryCheck: true,
-    boundaryOffset: 400,
+    boundaryParts: {
+        all: true,
+        top: true,
+        right: true,
+        bottom: true,
+        left: true
+    },
+    boundaryOffset: 200,
     colorCheck: [],
     perAttribute: []
 };

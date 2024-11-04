@@ -1,0 +1,3 @@
+const animationTracks = [];
+
+export { animationTracks };

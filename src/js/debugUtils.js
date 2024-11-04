@@ -1,6 +1,13 @@
-import { mathUtils } from './mathUtils.js';
+import { mathUtils } from './mathFunctions/mathUtils.js';
 
 let lastCalledTime = void 0;
+
+function padZero(str) {
+    if (str.length === 1) {
+        return `0${str}`;
+    }
+    return str;
+}
 
 const debug = {
     helpers: {
@@ -28,11 +35,11 @@ const debug = {
                 return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? '#000000' : '#FFFFFF';
             }
             // invert color components
-            r = (255 - r).toString(16);
-            g = (255 - g).toString(16);
-            b = (255 - b).toString(16);
+            let newR = (255 - r).toString(16);
+            let newG = (255 - g).toString(16);
+            let newB = (255 - b).toString(16);
             // pad each with zeros and return
-            return "#" + padZero(r) + padZero(g) + padZero(b);
+            return `#${padZero(newR)}${padZero(newG)}${padZero(newB)}`;
         }
 
     },
@@ -79,18 +86,21 @@ const debug = {
     flags: {
         all: false,
         parts: {
-            clicks: true,
-            runtime: true,
+            clicks: false,
+            runtime: false,
             update: false,
             killConditions: false,
             animationCounter: false,
             entityStore: false,
-            fps: true
+            fps: false
         }
     }
 };
 
-function displayDebugging(canvasEl) {
+function displayDebugging(canvasEl, displayFlag) {
+    if (displayFlag !== true) {
+        return;
+    }
     const { el, ctx } = canvasEl;
     // ctx.globalAlpha = 1;
     // debug.debugOutput(el, ctx, 'Animation Counter: ', counter, 0);
@@ -99,4 +109,104 @@ function displayDebugging(canvasEl) {
     debug.debugOutput(el, ctx, 'FPS: ', Math.round(debug.calculateFps()), 3, { min: 0, max: 60 });
 }
 
-export { debug, displayDebugging, lastCalledTime };
+const logger = {
+    display: true,
+    displayInterval: 60,
+    keepLog: true,
+    time: 0,
+    entityPoolCount: 0,
+    entityArrayCount: 0,
+    killed: 0,
+    addedNew: 0,
+    addedReincarnated: 0,
+    particlesRendered: 0,
+    particlesRenderedAverageArray: [],
+    messageArray: [],
+    addMessage: function(message) {
+        this.messageArray.push({text: message.text, value: message.value});
+    },
+    clearMessages: function() {
+        this.messageArray.length = 0;
+    },
+    setDisplay: function(bool) {
+        this.display = bool;
+    },
+    setEntityPoolCount: function(num) {
+        this.entityPoolCount = num;
+    },
+    setEntityArrayCount: function(num) {
+        this.entityArrayCount = num;
+    },
+    addNew: function(num) {
+        this.addedNew += num;
+    },
+    clearNew: function() {
+        this.addedNew = 0;
+    },
+    addReincarnated: function(num) {
+        this.addedReincarnated += num;
+    },
+    clearReincarnated: function() {
+        this.addedReincarnated = 0;
+    },
+    addKilled: function(num) {
+        this.killed += num;
+    },
+    clearKilled: function() {
+        this.killed = 0;
+    },
+    setParticlesRendered: function(num) {
+        this.particlesRendered = num;
+        this.particlesRenderedAverageArray.push(num);
+    },
+    clearParticlesRendered: function() {
+        this.particlesRendered = 0;
+    },
+    clearParticlesRenderedAverageArray: function() {
+        this.particlesRenderedAverageArray.length = 0;
+    },
+    clearAll: function() {
+        this.addedNew = 0;
+        this.addedReincarnated = 0;
+        this.killed = 0;
+        this.particlesRendered = 0;
+        this.particlesRenderedAverageArray.length = 0;
+    },
+    updateTime: function(counter) {
+        if (counter % this.displayInterval === 0) {
+            this.time += 1;
+        }
+    },
+    displayCounts: function(counter) {
+        if (this.display === false) {
+            return;
+        }
+        if (counter % this.displayInterval === 0) {
+            let averageParticlesRendered = 0;
+            for(let i = 0; i < this.particlesRenderedAverageArray.length; i++) {
+                averageParticlesRendered += this.particlesRenderedAverageArray[i]
+            }
+            if (this.keepLog === false) {
+                console.clear();
+            }
+            let averageDisplay = this.particlesRenderedAverageArray.length > 0 ? Math.floor(averageParticlesRendered / this.particlesRenderedAverageArray.length) : 0;
+            console.log(
+                'Time: ', this.time,
+                '\nParticles rendered average: ', averageDisplay,
+                '\nentityPoolCount: ', this.entityPoolCount,
+                '\nentityArrayCount: ', this.entityArrayCount,
+                '\naddedNew: ', this.addedNew,
+                '\naddedReincarnated: ', this.addedReincarnated
+            );
+            this.clearAll();
+        }
+        if (this.messageArray.length > 0) {
+            this.messageArray.forEach((x) => {
+                console.log(x.text, x.value);
+            });
+            this.clearMessages();
+        }
+    }
+}
+
+export { debug, displayDebugging, lastCalledTime, logger };

@@ -9,7 +9,7 @@ $section-button-text-size: 14px;
 .menu {
     position: absolute;
     width: 20%;
-    min-width: 300px;
+    min-width: 150px;
     bottom: 0;
     right: 0;
     padding: 10px;
@@ -41,6 +41,13 @@ $section-button-text-size: 14px;
             &.is-selected {
                 background: $button-bg-selected;
                 cursor: text;
+            }
+        }
+        &.selection-list-small {
+            display: flex;
+            flex-wrap: wrap;
+            li {
+                width: 50%;
             }
         }
     }

@@ -1,6 +1,7 @@
 const animationTracks = [
     {
         animName: 'radiusFade',
+        type: 'param',
         active: true,
         param: 'r',
         baseAmount: 'initR',
@@ -11,51 +12,59 @@ const animationTracks = [
     },
     {
         animName: 'color4DataChangeGreen',
+        type: 'color',
         active: true,
-        param: 'color4Data.g',
-        baseAmount: 'colorProfiles[0].g',
-        targetValuePath: 'colorProfiles[1].g',
+        param: 'g',
+        colorChange: {
+            from: {profile: 0, color: 'g'},
+            to: {profile: 1, color: 'g'}
+        },
         duration: 0.4,
         easing: 'easeInQuart',
         linkedAnim: false
     },
     {
         animName: 'color4DataChangeBlue',
+        type: 'color',
         active: true,
-        param: 'color4Data.b',
-        baseAmount: 'colorProfiles[0].b',
-        targetValuePath: 'colorProfiles[1].b',
+        param: 'b',
+        colorChange: {
+            from: {profile: 0, color: 'b'},
+            to: {profile: 1, color: 'b'}
+        },
+        baseAmount: 'colorProfiles.0.b',
+        targetValuePath: 'colorProfiles.1.b',
         duration: 0.5,
         easing: 'easeOutQuart',
         linkedAnim: false
     },
     {
         animName: 'alphaDelay',
+        type: 'color',
         active: true,
-        param: 'color4Data.a',
-        baseAmount: 'colorProfiles[0].a',
-        targetValuePath: 'colorProfiles[0].a',
-        duration: 0.5,
+        param: 'a',
+        colorChange: {
+            from: {profile: 0, color: 'a'},
+            to: {profile: 1, color: 'a'}
+        },
+        baseAmount: 'colorProfiles.0.a',
+        targetValuePath: 'colorProfiles.0.a',
+        duration: 0.6,
         easing: 'linearEase',
-        linkedAnim: 'alphaFadeIn'
-    },
-    {
-        animName: 'alphaFadeIn',
-        active: true,
-        param: 'color4Data.a',
-        baseAmount: 'colorProfiles[0].a',
-        targetValuePath: 'colorProfiles[1].a',
-        duration: 0.2,
-        easing: 'easeInQuint',
         linkedAnim: 'alphaFadeOut'
     },
     {
         animName: 'alphaFadeOut',
+        type: 'color',
         active: false,
-        param: 'color4Data.a',
-        baseAmount: 'colorProfiles[1].a',
-        targetValuePath: 'colorProfiles[0].a',
-        duration: 0.3,
+        param: 'a',
+        colorChange: {
+            from: {profile: 1, color: 'a'},
+            to: {profile: 2, color: 'a'}
+        },
+        baseAmount: 'colorProfiles.1.a',
+        targetValuePath: 'colorProfiles.0.a',
+        duration: 0.4,
         easing: 'linearEase',
         linkedAnim: false,
         // linkedEvent: 'emit',

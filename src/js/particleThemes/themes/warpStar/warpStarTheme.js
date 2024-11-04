@@ -1,5 +1,6 @@
-import { trigonomicUtils as trig } from './../../../trigonomicUtils.js';
-import { mathUtils } from './../../../mathUtils.js';
+import { trigonomicUtils as trig } from '../../../mathFunctions/trigonomicUtils.js';
+import { mathUtils } from '../../../mathFunctions/mathUtils.js';
+import { drawFillCircle, drawFillEllipse } from '../../../drawingFunctions/canvasApiAugmentation.js';
 // import { rgba } from './../../../colorUtils.js';
 
 var warpStarTheme = {
@@ -52,8 +53,8 @@ var warpStarTheme = {
     renderParticle: function renderParticle(x, y, r, colorData, context) {
         var p = this;
 
-        var stretchVal = mathUtils.mapValues(p.relativeMagnitude, 0, 100, 1, 10);
-        var chromeVal = mathUtils.mapValues(stretchVal, 0, 10, 1, 4);
+        var stretchVal = mathUtils.mapValues(p.relativeMagnitude, 0, 100, 1, 10, true);
+        var chromeVal = mathUtils.mapValues(stretchVal, 0, 10, 1, 4, true);
         var thisWillFlare = p.customAttributes.lensFlare.willFlare;
 
         context.translate(x, y);
@@ -61,15 +62,15 @@ var warpStarTheme = {
 
         if (chromeVal < 1) {
             context.fillStyle = "rgba( 255, 255, 255, 1 )";
-            context.fillEllipse(0, 0, r * stretchVal, r, context);
+            drawFillEllipse(0, 0, r * stretchVal, r, context);
         } else {
             // fake chromatic abberation ( rainbowing lens effect due to light refraction
             context.fillStyle = "rgba( 255, 0, 0, " + colorData.a + " )";
-            context.fillEllipse(chromeVal * -1, 0, r * stretchVal, r, context);
+            drawFillEllipse(chromeVal * -1, 0, r * stretchVal, r, context);
             context.fillStyle = "rgba( 0, 255, 0, " + colorData.a + " )";
-            context.fillEllipse(0, 0, r * stretchVal, r, context);
+            drawFillEllipse(0, 0, r * stretchVal, r, context);
             context.fillStyle = "rgba( 0, 0, 255, " + colorData.a + " )";
-            context.fillEllipse(0, chromeVal, r * stretchVal, r, context);
+            drawFillEllipse(0, chromeVal, r * stretchVal, r, context);
         }
         context.rotate(-p.angle);
         context.translate(-x, -y);
@@ -92,14 +93,14 @@ var warpStarTheme = {
             context.scale(shineRand * opacity1, 0.005);
             context.fillStyle = shineGrd;
 
-            context.fillCircle(0, 0, 800, context);
+            drawFillCircle(0, 0, 800, context);
             context.scale(0.005, shineRand);
-            context.fillCircle(0, 0, 800, context);
+            drawFillCircle(0, 0, 800, context);
 
             context.rotate( 1.5 );
-            context.fillCircle(0, 0, 800, context);
+            drawFillCircle(0, 0, 800, context);
             context.rotate( 1 );
-            context.fillCircle(0, 0, 800, context);
+            drawFillCircle(0, 0, 800, context);
             context.rotate( -0.5 );
 
             context.restore();
@@ -114,7 +115,7 @@ var warpStarTheme = {
             grd.addColorStop(0.9, "rgba( 0, 0, 255, " + opacity2 + " )");
             grd.addColorStop(1, "rgba( 0, 0, 255, 0 )");
             context.fillStyle = grd;
-            context.fillCircle(x, y, 100, context);
+            drawFillCircle(x, y, 100, context);
 
             var radDist1 = 200 * stretchVal;
             var x2 = radDist1 * flareCos + x;
@@ -131,7 +132,7 @@ var warpStarTheme = {
             grd2.addColorStop(1, "rgba( 255, 255, 255, 0 )");
 
             context.fillStyle = grd2;
-            context.fillCircle(x2, y2, 50, context);
+            drawFillCircle(x2, y2, 50, context);
 
             // little flare 2
             var grd2a = context.createRadialGradient(x2a, y2a, 0, x2a, y2a, 50);
@@ -140,7 +141,7 @@ var warpStarTheme = {
             grd2a.addColorStop(0.8, "rgba( 255, 255, 255, " + opacity3 + " )");
             grd2a.addColorStop(1, "rgba( 255, 255, 255, 0 )");
             context.fillStyle = grd2a;
-            context.fillCircle(x2a, y2a, 50, context);
+            drawFillCircle(x2a, y2a, 50, context);
 
             var radDist2 = 300 * stretchVal * 1.5;
             var x3 = radDist2 * flareCos + x;
@@ -155,7 +156,7 @@ var warpStarTheme = {
             grd3.addColorStop(0.8, "rgba( 255, 255, 255, " + opacity3 + " )");
             grd3.addColorStop(1, "rgba( 255, 255, 255, 0 )");
             context.fillStyle = grd3;
-            context.fillCircle(x3, y3, 25, context);
+            drawFillCircle(x3, y3, 25, context);
 
             // little flare 4
             var grd3a = context.createRadialGradient(x3a, y3a, 0, x3a, y3a, 25);
@@ -164,7 +165,7 @@ var warpStarTheme = {
             grd3a.addColorStop(0.8, "rgba( 255, 255, 255, " + opacity3 + " )");
             grd3a.addColorStop(1, "rgba( 255, 255, 255, 0 )");
             context.fillStyle = grd3a;
-            context.fillCircle(x3a, y3a, 25, context);
+            drawFillCircle(x3a, y3a, 25, context);
         }
     }
 };

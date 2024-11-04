@@ -1,0 +1,40 @@
+toc:
+  - name: Animation
+    description: |
+      Easing functions available for use in the application. All easing equations are functions returning a value between start<startValue> and end values (<startValue> + <changeInValue>) at the current iteration<currentIteration> proportional to the total iterations<totalIterations>. The value is calculated along the curve represented by the easing equation on value/time axis. Visual examples of easing curves can be seen here: [Easing Equations](https://easings.net/)
+    children:
+      - EasingEquation
+      - EasingEquationAlt
+      - EasingEquationExtended
+      - linearEase
+      - easeInQuad
+      - easeOutQuad
+      - easeInOutQuad
+      - easeInCubic
+      - easeOutCubic
+      - easeInOutCubic
+      - easeInQuart
+      - easeOutQuart
+      - easeInOutQuart
+      - easeInQuint
+      - easeOutQuint
+      - easeInOutQuint
+      - easeInSine
+      - easeOutSine
+      - easeInOutSine
+      - easeInExpo
+      - easeOutExpo
+      - easeInOutExpo
+      - easeInCirc
+      - easeOutCirc
+      - easeInOutCirc
+      - easeInElastic
+      - easeOutElastic
+      - easeInOutElastic
+      - easeInBack
+      - easeOutBack
+      - easeInOutBack
+      - easeInBounce
+      - easeOutBounce
+      - easeInOutBounce
+      - easingEquations

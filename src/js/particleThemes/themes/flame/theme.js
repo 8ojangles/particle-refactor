@@ -9,14 +9,14 @@ import { renderFn } from './renderFn.js';
 const flameTheme = {
     contextBlendingMode: 'lighter',
     active: 1,
-    life: { min: 30, max: 60 },
+    life: { min: 15, max: 25 },
     angle: { min: 1.45, max: 1.55 },
     mag: { min: 8, max: 13 },
-    velAcceleration: 1.05,
+    velAcceleration: { min: 1.05, max: 1.10 },
     // velAcceleration: { min: 1, max: 1 },
-    magDecay: 1.5,
-    radius: { min: 100, max: 180 },
-    targetRadius: { min: 1, max: 2 },
+    magDecay: 1.75,
+    radius: { min: 80, max: 150 },
+    targetRadius: { min: 0, max: 0 },
     applyGlobalForces: false,
     colorProfiles: colorProfiles,
     renderProfiles: renderProfiles,
@@ -26,7 +26,7 @@ const flameTheme = {
         threshold: 50
     },
     animationTracks: animationTracks,
-
+    linkCreationAttributes: [],
     events: [{
         eventType: 'emit',
         eventParams: {
@@ -35,7 +35,7 @@ const flameTheme = {
     }],
 
     killConditions: killConditions,
-    renderParticle: renderFn
+    renderParticle: renderFn,
 };
 
 export { flameTheme };

@@ -1,162 +1,121 @@
-import { trigonomicUtils as trig } from'./../trigonomicUtils.js';
-import { mathUtils } from'./../mathUtils.js';
-import { getValue } from './../utilities.js';
+import { radialDistribution, calculateVelocities } from '../mathFunctions/trigonomicUtils.js';
+import { randomInteger, random as rand, mapValues, getRandomArbitrary  } from'../mathFunctions/mathUtils.js';
+import { createAnimationTracks } from './createAnimationTracks';
+import { themes } from './../particleThemes/themes.js';
 
 const PI = Math.PI;
-const rand = mathUtils.random;
 
-function createAnimationTracks( arr, ppa ) {
-    var animArr = [];
-    var splChrs = '.';
-
-    if (arr && arr.length > 0) {
-        let arrLen = arr.length;
-        for (let i = arrLen - 1; i >= 0; i--) {
-
-            var t = arr[i];
-            var prm = t.param.split(splChrs);
-            var prmTemp = { path: prm, pathLen: prm.length };
-            var baseVal = getValue( t.baseAmount, ppa );
-            var targetVal = void 0;
-            
-            if ( t.targetValuePath ) {
-
-                if ( getValue( t.targetValuePath, ppa ) === 0 ) {
-                    targetVal = baseVal * -1;
-                } else {
-                    targetVal = getValue( t.targetValuePath, ppa ) - baseVal;
-                }
-            } else if ( t.targetAmount ) {
-                targetVal = t.targetAmount;
-            }
-
-            var duration = 60 * t.duration;
-            let life = ppa.lifeSpan;
-            t.duration === 'life' ? duration = life : t.duration < 1 ? duration = life * t.duration : t.duration > 1 ? duration = life : false;
-
-            let thisAnim = {
-                animName: t.animName,
-                active: t.active,
-                param: prmTemp,
-                baseAmount: t.baseAmount,
-                targetAmount: t.targetValuePath, 
-                currTick: 0,
-                duration: duration,
-                easing: t.easing,
-                linkedAnim: t.linkedAnim,
-                linkedEvent: t.linkedEvent
-            }
-            // console.log( 'thisAnim: ', thisAnim );
-            animArr.push( thisAnim );
-        }
-
-        return animArr;
+/**
+ * @description given min/max bounds return lifeSpan (number) within bounds. Use bitwise to check for odd/even results. Make even to help with anims that are fraction of life (frames)
+ * @param {number} min - minimum bounds
+ * @param {number} max - maximum bounds
+ * @returns {number}
+ */
+function calculateLifeSpan(min, max) {
+    let lifeSpan = randomInteger(min, max);
+    if (lifeSpan & 1) {
+        return lifeSpan++;
     }
-
-    return false;
-
-};
-
-
-function linkCreationAttributes( item ) {
-
+    return lifeSpan;
 }
 
+/**
+ * @typedef {object} processedInitR
+ * @property {number} value - the array of LinkedCreationAttributes
+ */
+/**
+ * @typedef {object} processedTargetRadius
+ * @property {number} value - the array of LinkedCreationAttributes
+ */
+/**
+ * @typedef {object} processedLifeSpan
+ * @property {number} value - the array of LinkedCreationAttributes
+ */
 
-function createPerParticleAttributes(x, y, emissionOpts, perParticleOpts) {
-    // let themed = perParticleOpts.theme || themes.reset;
+/**
+ * @typedef {object} processedLinkedAttributeObj
+ * @property {processedInitR} [initR]
+ * @property {processedTargetRadius} [targetRadius]
+ * @property {processedLifeSpan} [lifeSpan]
+ */
 
+/**
+ * @description process LinkedCreationAttributes from Particle Theme into object for later use
+ * @param {array} arr - the array of LinkedCreationAttributes
+ * @param {array} theme - the theme to derive values from
+ * @param currentContext - "this" from the parent function
+ * @returns {processedLinkedAttributeObj}
+ */
+function processLinkedAttributes(arr, theme, emissionOpts, currentContext) {
+    let obj = {};
+    
+    if ( arr && arr.length > 0 ) {
+        const arrLen = arr.length;
+        for ( let i = arrLen - 1; i >= 0; i-- ) {
+            const { src, srcValue, target, attr } = arr[ i ];
+
+            const srcVal = theme[ src ] || emissionOpts[ src ];
+
+            obj[ attr ] = {
+                value: mapValues(
+                    currentContext[ srcValue ],
+                    srcVal.min,
+                    srcVal.max,
+                    theme[ target ].min,
+                    theme[ target ].max,
+                    true
+                )
+            }
+        }
+    }
+    return obj;
+}
+
+function createPerParticleAttributes(x, y, emissionOpts, perParticleOpts, idx) {
     // direct particle options from theme
-    var themed = perParticleOpts || themes.reset;
-    var emitThemed = emissionOpts || false;
-    var lifeSpan = mathUtils.randomInteger(themed.life.min, themed.life.max);
-    // use bitwise to check for odd/even life vals. Make even to help with anims that are fraction of life (frames)
-    lifeSpan & 1 ? lifeSpan++ : false;
-    // emmiter based attributes
-    var emission = emitThemed.emission || emitThemed;
-    
-    let dir = emission.direction;
-    var direction = dir.rad > 0 ? dir.rad : mathUtils.getRandomArbitrary(dir.min, dir.max) * PI;
-    
-    let imp = emission.impulse;
-    var impulse = imp.pow > 0 ? imp.pow : rand( imp.min, imp.max);
+    const themed = perParticleOpts || themes.reset;
+    const emitThemed = emissionOpts || false;
+    const { linkCreationAttributes: linkedAttr, customAttributes, colorProfiles, life, radius, targetRadius: tRadius, velAcceleration } = themed;
 
+    const lifeSpan = calculateLifeSpan(life.min, life.max);
+    // emitter based attributes
+    const emission = emitThemed.emission || emitThemed;
+    
+    const { direction: dir, impulse: imp, radialDisplacement, radialDisplacementOffset } = emission;
+
+    const direction = dir.rad > 0 ? dir.rad : rand(dir.min, dir.max) * PI;
+    const impulse = imp.pow > 0 ? imp.pow : rand( imp.min, imp.max);
+    this.impulse = impulse;
     // set new particle origin dependent on the radial displacement
-    if ( emission.radialDisplacement > 0 ) {
-        var newCoords = trig.radialDistribution(x, y, emission.radialDisplacement + rand( emission.radialDisplacementOffset * -1, emission.radialDisplacementOffset), direction);
+    if ( radialDisplacement > 0 ) {
+        const newCoords = radialDistribution(x, y, radialDisplacement + rand( radialDisplacementOffset * -1, radialDisplacementOffset), direction);
 
         x = newCoords.x;
         y = newCoords.y;
     }
 
-    var velocities = trig.calculateVelocities(x, y, direction, impulse);
+    const velocities = calculateVelocities(x, y, direction, impulse);
 
-    
     // theme based attributes
-
-    var initR = rand( themed.radius.min, themed.radius.max );
-    var acceleration = rand( themed.velAcceleration.min, themed.velAcceleration.max );
+    const initR = rand(radius.min, radius.max);
+    const targetRadius = rand( tRadius.min, tRadius.max);
+    const acceleration = rand( velAcceleration.min, velAcceleration.max );
     this.acceleration = acceleration;
-    var targetRadius = rand( themed.targetRadius.min, themed.targetRadius.max) ;
+    const tempStore = processLinkedAttributes(linkedAttr, themed, emissionOpts, this);
 
-    let tempStore = {};
-    // console.log( 'themed.linkCreationAttributes: ', themed.linkCreationAttributes );
-    if ( themed.linkCreationAttributes && themed.linkCreationAttributes.length > 0 ) {
-        // console.log( 'themed.linkCreationAttributes true: ');
-        // console.log( 'themed.linkCreationAttributes: ', themed.linkCreationAttributes );
-        let linkCreationAttributesLen = themed.linkCreationAttributes.length;
-        for ( let i = linkCreationAttributesLen - 1; i >= 0; i-- ) {
-
-            let thisLink = themed.linkCreationAttributes[ i ];
-
-            let srcAttr = thisLink.src;
-            let targetAttr = thisLink.target;
-            let attr = thisLink.attr;
-
-            tempStore[ attr ] = {
-                value: mathUtils.mapValues(
-                    this[ thisLink.srcValue ],
-                    themed[ srcAttr ].min, themed[ srcAttr ].max,
-                    themed[ targetAttr ].min, themed[ targetAttr ].max
-                      )
-            }
-
-        }
-
-
-    } else {
-        // console.log( 'themed.linkCreationAttributes false: ');
-    }
-
-
-    var initColor = themed.colorProfiles[0];
-    var color4Data = { r: initColor.r, g: initColor.g, b: initColor.b, a: initColor.a };
-
-    var willFlare = void 0;
-    var willFlareTemp = mathUtils.randomInteger(0, 1000);
-
-    var tempCustom = {
+    const tempCustom = {
         lensFlare: {
             mightFlare: true,
-            willFlare: themed.customAttributes.lensFlare.mightFlare === true && willFlareTemp < 10 ? true : false,
+            willFlare: customAttributes.lensFlare.mightFlare === true && randomInteger(0, 1000) < 10 ? true : false,
             angle: 0.30
         }
-
-        // let customAttributes = themed.customAttributes;
     };
 
-    // let tempCheck = tempStore.targetRadius ? true : false;
-    // if ( tempCheck ) {
-    //     console.log( 'temp target radius exists' );
-    // } else {
-    //     console.log( 'temp target radius NOT exists' );
-    // }
-
-    var ppa = {
+    let ppa = {
         active: perParticleOpts.active || themed.active || 0,
-        initR: tempStore.initR ? tempStore.initR.value : initR,
-        targetRadius: tempStore.targetRadius ? tempStore.targetRadius.value : targetRadius,
-        lifeSpan: tempStore.lifeSpan ? tempStore.lifeSpan.value : lifeSpan,
+        initR: tempStore.initR !== undefined ? tempStore.initR.value : initR,
+        tR: tempStore.targetRadius !== undefined ? tempStore.targetRadius.value : targetRadius,
+        lifeSpan: tempStore.lifeSpan !== undefined ? tempStore.lifeSpan.value : lifeSpan,
         angle: direction,
         magnitude: impulse,
         relativeMagnitude: impulse,
@@ -173,10 +132,8 @@ function createPerParticleAttributes(x, y, emissionOpts, perParticleOpts) {
         globalAlpha: themed.globalAlpha,
         globalAlphaInitial: themed.globalAlphaInitial,
         globalAlphaTarget: themed.globalAlphaTarget,
-        color4Data: {
-            r: color4Data.r, g: color4Data.g, b: color4Data.b, a: color4Data.a
-        },
-        colorProfiles: themed.colorProfiles,
+        color4Data: { ...colorProfiles[0] },
+        colorProfiles: colorProfiles,
 
         // color4Change: color4Change,
         killConditions: themed.killConditions,
@@ -185,6 +142,10 @@ function createPerParticleAttributes(x, y, emissionOpts, perParticleOpts) {
         renderFN: themed.renderParticle,
         events: themed.events
     };
+
+    if (idx) {
+        ppa.idx = idx;
+    }
 
     ppa.animationTracks = createAnimationTracks( themed.animationTracks, ppa );
 

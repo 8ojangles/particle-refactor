@@ -1,8 +1,4 @@
-// var mathUtils = require('./../../../mathUtils.js').mathUtils;
-// var coloring = require('./../../../colorUtils.js').colorUtils;
-// var rgba = coloring.rgba;
-
-import { rgba } from './../../../colorUtils.js';
+import { renderFn } from './renderFn.js';
 
 const smokeTheme = {
     contextBlendingMode: 'source-over',
@@ -76,27 +72,18 @@ const smokeTheme = {
     }],
     killConditions: {
         boundaryCheck: true,
+        boundaryParts: {
+            all: true,
+            top: true,
+            right: true,
+            bottom: true,
+            left: true
+        },
         boundaryOffset: 200,
         colorCheck: [],
         perAttribute: false
     },
-    renderParticle: function renderParticle(x, y, r, colorData, context) {
-        var p = this;
-        // console.log( 'rendering smoke' );
-
-        if (context.globalCompositeOperation !== 'source-over') {
-            context.globalCompositeOperation = 'source-over';
-        }
-
-        var grd = context.createRadialGradient(x, y, 0, x, y, r);
-        // var grd = context.createRadialGradient(x, y, 0, x, y, r);
-        // grd.addColorStop(0, rgba( colorData.r,  colorData.g, colorData.b, 0.05) );
-        // grd.addColorStop(1, rgba( colorData.r, colorData.g, colorData.b, 0) );
-        grd.addColorStop(0, rgba(colorData.r, colorData.g, colorData.b, colorData.a));
-        grd.addColorStop(1, rgba(colorData.r, colorData.g, colorData.b, 0));
-        context.fillStyle = grd;
-        context.fillCircle(x, y, r, context);
-    }
+    renderParticle: renderFn,
 };
 
 export { smokeTheme };

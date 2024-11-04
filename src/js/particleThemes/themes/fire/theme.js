@@ -1,13 +1,10 @@
-// utilities
-import { mathUtils } from './../../../mathUtils.js';
-
-// theme partials
 import { animationTracks } from'./animationTracks.js';
 import { killConditions } from'./killConditions.js';
 import { customAttributes } from'./customAttributes.js';
 import { renderFn } from'./renderFn.js';
+import { colorProfiles } from'./colorProfiles.js';
 
-var fireTheme = {
+const fireTheme = {
     contextBlendingMode: 'lighter',
     active: 1,
     life: { min: 20, max: 100 },
@@ -18,7 +15,7 @@ var fireTheme = {
     radius: { min: 0.5, max: 20 },
     targetRadius: { min: 0, max: 0 },
     applyGlobalForces: true,
-    colorProfiles: [{ r: 255, g: 255, b: 255, a: 1 }, { r: 215, g: 0, b: 0, a: 0 }, { r: 0, g: 215, b: 0, a: 0 }, { r: 0, g: 0, b: 215, a: 0 }],
+    colorProfiles: colorProfiles,
     renderProfiles: [{ shape: 'Circle', colorProfileIdx: 0 }],
     customAttributes,
     animationTracks,

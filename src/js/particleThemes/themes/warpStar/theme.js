@@ -1,9 +1,3 @@
-// utilities
-// import { mathUtils } from './../../../mathUtils.js';
-// import { rgba } from './../../../colorUtils.js';
-
-
-// theme partials
 import { renderFn } from './renderFn.js';
 import { animationTracks } from './animationTracks.js';
 import { killConditions } from './killConditions.js';
@@ -32,7 +26,7 @@ const warpStarTheme = {
     customAttributes: customAttributes,
     animationTracks: animationTracks,
     killConditions: killConditions,
-    renderParticle: renderFn
+    renderParticle: renderFn,
 };
 
 export { warpStarTheme };

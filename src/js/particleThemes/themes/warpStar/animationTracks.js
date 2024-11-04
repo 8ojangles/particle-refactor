@@ -11,10 +11,13 @@ const animationTracks = [
     // },
     {
         animName: 'fadeIn',
+        type: 'param',
         active: true,
         param: 'globalAlpha',
-        baseAmount: 0,
-        targetValuePath: 1,
+        // baseAmount: 0,
+        // targetValuePath: 1,
+        baseAmount: 'globalAlphaInitial',
+        targetValuePath: 'globalAlphaTarget',
         duration: 2,
         easing: 'easeInCubic',
         linkedAnim: false

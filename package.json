@@ -7,9 +7,11 @@
   "scripts": {
     "test": "test",
     "build": "node esbuild/esbuild.js",
+    "buildjs": "node esbuild/esbuildjsonly.js",
     "start": "node esbuild/serve.js",
     "watch": "node esbuild/serve.js --watch --servedir=dist",
-    "analyze": "node esbuild/analyse.js"
+    "analyze": "node esbuild/analyse.js",
+    "buildDocs": "documentation build src/js/** -f html --github -o docs --config documentationConfig.yml"
   },
   "repository": {
     "type": "git",
@@ -30,16 +32,18 @@
   },
   "homepage": "https://github.com/8ojangles/project-template-esbuild#readme",
   "devDependencies": {
+    "dbly-linked-list": "^0.3.4",
+    "documentation": "^14.0.3",
     "esbuild": "^0.20.2",
     "esbuild-plugin-clean": "^1.0.1",
     "esbuild-plugin-copy": "^2.1.1",
     "esbuild-sass-plugin": "^3.2.0",
     "htmlnano": "^2.1.0",
-    "svgo": "^3.2.0",
-    "dbly-linked-list": "^0.3.4",
-    "object-path": "^0.11.4"
+    "object-path": "^0.11.4",
+    "svgo": "^3.2.0"
   },
   "dependencies": {
-    "nunjucks": "^3.2.4"
+    "nunjucks": "^3.2.4",
+    "simplex-noise": "^4.0.1"
   }
 }

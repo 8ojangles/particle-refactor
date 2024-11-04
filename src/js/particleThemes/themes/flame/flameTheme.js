@@ -1,6 +1,6 @@
-import { mathUtils } from './../../../mathUtils.js';
-import { colorUtils } from './../../../colorUtils.js';
-import { trigonomicUtils as trig } from './../../../trigonomicUtils.js';
+import { mathUtils } from '../../../mathFunctions/mathUtils.js';
+import { colorUtils } from '../../../drawingFunctions/colorUtils.js';
+import { trigonomicUtils as trig } from '../../../mathFunctions/trigonomicUtils.js';
 
 const { rgba } = colorUtils;
 
@@ -108,8 +108,8 @@ var flameTheme = {
     },
     renderParticle: function renderParticle(x, y, r, colorData, context) {
         var p = this;
-        var stretchVal = mathUtils.mapValues(p.currLifeInv, 0, p.lifeSpan, 1, 5);
-        var offsetMap = mathUtils.mapValues(p.currLifeInv, 0, p.lifeSpan, 0, 1);
+        var stretchVal = mathUtils.mapValues(p.currLifeInv, 0, p.lifeSpan, 1, 5, true);
+        var offsetMap = mathUtils.mapValues(p.currLifeInv, 0, p.lifeSpan, 0, 1, true);
         var newAngle = trig.getAngleAndDistance(x, y, x + p.xVel, y + p.yVel);
         if (context.globalCompositeOperation !== 'lighter') {
             context.globalCompositeOperation = 'lighter';

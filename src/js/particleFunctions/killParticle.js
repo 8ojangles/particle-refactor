@@ -1,7 +1,8 @@
-const killParticle = (p, list, index, entityCounter) => {
+function killParticle(p, list, index, entityCounter) {
     p.isAlive = 0;
-    list.insert(index);
+    list.insertFirst(index);
     entityCounter.subtract(1);
+    return p;
 };
 
 export { killParticle };

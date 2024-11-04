@@ -1,4 +1,4 @@
-// var mathUtils = require('./../../../mathUtils.js').mathUtils;
+import { renderFn } from './renderFn.js';
 
 const resetTheme = {
     emmisionRate: { min: 0, max: 0 },
@@ -55,7 +55,7 @@ const resetTheme = {
         colorCheck: [],
         perAttribute: []
     },
-    renderParticle: false
+    renderParticle: renderFn,
 };
 
 export { resetTheme };

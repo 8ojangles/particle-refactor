@@ -3,7 +3,7 @@
 // import { trigonomicUtils as trig } from './../../../trigonomicUtils.js';
 // import { rgba } from './../../../colorUtils.js';
 // let coloring = require('./../../../colorUtils.js').colorUtils;
-import { easingEquations as easing } from './../../../easing.js';
+import { easingEquations as easing } from '../../../animationFunctions/easing.js';
 import { createWarpStarImage } from './../../../createWarpStarImage.js';
 let warpStarImage = createWarpStarImage();
 
@@ -55,6 +55,7 @@ let easeInputMaxVal = 10;
 
 function renderFn(x, y, r, colorData, c ) {
     let p = this;
+    // console.log('rendering p: ', p);
     let vel = parseFloat( p.relativeMagnitude.toFixed( 2 ) );
     let thisR = r * 2;
 
@@ -78,17 +79,23 @@ function renderFn(x, y, r, colorData, c ) {
     // if ( p.idx === 9997 ) {
     //     console.log( p.idx + ' - '+ p.globalAlpha );
     // }
+    // if (p.globalAlpha !== 1) {
+    //     c.globalAlpha = p.globalAlpha;
+    // }
     c.globalAlpha = p.globalAlpha;
     // c.globalAlpha = 1;
-    let renderProps = warpStarImage.renderProps;
+    let renderProps = warpStarImage.config;
 
     c.drawImage(
-        warpStarImage,
+        warpStarImage.warpStarCanvas,
         0, 0, renderProps.src.w, renderProps.src.h,
         0, -( thisR / 2 ), longR, thisR
     );
 
     c.resetTransform();
+    // if (p.globalAlpha !== 1) {
+    //     c.globalAlpha = 1;
+    // }
     c.globalAlpha = 1;
     // if ( p.idx === 9997 || p.idx === 9995 ) {
     //     console.log( p.idx + ' - '+ p.globalAlpha );

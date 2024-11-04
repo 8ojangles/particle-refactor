@@ -1,147 +1,62 @@
-// dependencies
+import { animation } from './runtime/animation.js';
+import { environment, runtimeConfig, createCanvasConfig, clearCanvas, initialiseEngine } from './runtime/environment.js';
+import { updateEmitterStoreMembers } from './emitterFunctions/emitterStore.js';
+import { updateParticleArr, renderParticleArr } from './particleFunctions/particleArrFn.js';
+import { presetThemeNames } from './themeUtils.js';
+import { initialiseUI, setParticlePreset } from './ui/ui.js';
+import { displayDebugging, logger } from './debugUtils.js';
+import { stores } from './stores/stores.js';
 
-// NPM
-import { default as LinkedList } from 'dbly-linked-list';
-import * as objectPath from 'object-path';
-
-// Custom Requires
-// import { mathUtils } from './mathUtils.js';
-// import { trigonomicUtils as trig } from './trigonomicUtils.js';
-// import { canvasDrawingApi } from './canvasApiAugmentation.js';
-// import { colorUtils } from './colorUtils.js';
-// import { easingEquations as easing } from './easing.js';
-import { animation } from './animation.js';
-import { debug, displayDebugging, lastCalledTime } from './debugUtils.js';
-import { environment, initialiseCanvas, runtimeConfig, createCanvasConfig, clearCanvas, initialiseEngine } from './environment.js';
-const physics = environment.forces;
-const runtimeEngine = environment.runtimeEngine;
-
-// Particle engine machinery
-import { EmitterEntity } from './emitterEntity.js';
-import { EmitterStoreFn, prePopulateEntityStore, updateEmitterStoreMembers, emitEntities } from './emitterStore.js';
-import { particleArrFn } from './particleArrFn.js';
-import { particleFn } from './particleFn.js';
-import {
-    setParticleAttributes,
-    reincarnateParticle,
-    createLiveParticle
-} from './particleFunctions/createParticleFns.js';
-// Emitter themes
-import { emitterThemes } from './emitterThemes/emitterThemes.js';
-// particle themes
-import { themes } from './particleThemes/themes.js';
-import { particleThemeNames, emitterThemeNames, emissionTypeNames } from './themeUtils.js';
-import { initialiseUI } from './ui.js';
+const { runtimeEngine } = environment;
+const { startAnimation, stopAnimation } = runtimeEngine;
 
 // cache canvas dimensions
 const canvasConfig = createCanvasConfig();
-// initialise canvases
-const mainCanvas = initialiseCanvas(canvasConfig.w, canvasConfig.h, "#test-base", false, true, false);
-const blitCanvas = initialiseCanvas(canvasConfig.w, canvasConfig.h, 'blitterCanvas', true, true, true);
+const { w, h, canvases } = canvasConfig;
+const { main: mainCanvas, blit: blitCanvas } = canvases;
 
-// emitter store
-var emitterStore = [];
-// particle store
-var entityStore = [];
-// particle store meta data
-var entityPool = new LinkedList();
-var liveEntityCount = 0;
+// setup for initial particle examples
+setParticlePreset(presetThemeNames.warpedstars, canvasConfig);
+logger.setDisplay(true);
 
-// pre-populate entityStore
-console.log( "pre-populating entityStore with '%d' particles: ", 5000 );
-prePopulateEntityStore(entityStore, entityPool, emitterThemes.base, themes.reset, 5000, emitterStore);
-console.log( "entityStore pre-populated entityStore with '%d' particles: ", 5000 );
-// console.log( 'initial particle: ', entityStore[ 9997 ] );
-
-// global counter
-let globalClock = 0;
-let counter = 0;
-
-// set default variables 
-let mouseX = void 0,
-    mouseY = void 0,
-    runtime = void 0,
-    pLive = void 0;
-
-// set defaults
-canvasConfig.updateParticleTheme(particleThemeNames.flame);
-canvasConfig.updateEmitterTheme(emitterThemeNames.flamestream);
-canvasConfig.updateEmissionType(emissionTypeNames.steadyStream);
-canvasConfig.updateEmissionPoint(canvasConfig.centerH, canvasConfig.centerV);
-
-// var currEmmissionType = {
-//     mouseClickEvent: false,
-//     randomBurst: false,
-//     steadyStream: true
-// };
-
-// let streamEmmisionLimiter = false;
-
-// var smokeEmitter = new EmitterEntity('smokeEmitter', smokeStreamTheme, themes.smoke, emitEntities, entityStore, entityPool);
-// emitterStore.push(smokeEmitter);
-
-function updateCycle() {
-
-    // if ( currEmmissionType.steadyStream === true ) {
-    //     if ( streamEmmisionLimiter === false ) {
-    //         testEmitter.triggerEmitter({
-    //             x: canvasConfig.centerH,
-    //             y: canvasConfig.centerV
-    //         });
-    //         streamEmmisionLimiter = true;
-    //         animation.state = true;
-    //     }
-    // }
-
-
-    // rendering
-    
-    particleArrFn.renderParticleArr( blitCanvas.ctx, entityStore, animation );
-    // blitCtx.filter = "blur(0px)";
-    // blit to onscreen
-    mainCanvas.ctx.drawImage( blitCanvas.el, 0, 0 );
-    // ctx.fillStyle = holeGrad;
-    // ctx.fillCircle( canvasCentreH, canvasCentreV, 200 );
-
-    // updating
-    particleArrFn.updateParticleArr( entityStore, entityPool, animation, canvasConfig, runtimeConfig, emitterStore );
-
-    updateEmitterStoreMembers(emitterStore);
-
-}
-
-/////////////////////////////////////////////////////////////
 // runtime
-/////////////////////////////////////////////////////////////
+// declared here until I work out how to extract it to its own file and use it as an instance in the 2 init functions. It is currently taking in a lot of the imports declared above in the global scope. fn.bind() only works on the first update (i think)
 function update() {
+    const { ctx: blitCtx, el: blitEl } = blitCanvas;
+    const { currentEmission } = canvasConfig;
+    const { contextBlendingMode } = currentEmission.particleTheme;
+    const { entities, emitters, entityPool } = stores;
 
-    // loop housekeeping
-    runtime = undefined;
-
-    // clean canvas
-    clearCanvas( mainCanvas.ctx, blitCanvas.ctx, canvasConfig.w, canvasConfig.h );
-
-    // blending
-    if ( blitCanvas.ctx.globalCompositeOperation != canvasConfig.currentEmission.particleTheme.contextBlendingMode ) {
-        blitCanvas.ctx.globalCompositeOperation = canvasConfig.currentEmission.particleTheme.contextBlendingMode;
+    // update cycle
+    // 1: reset loop variable
+    // 2: clean canvas
+    // 3: change blend mode if different to particle config
+    // 4: render particles to blitter (offscreen canvas)
+    // 5: transfer blitter to onscreen canvas
+    // 6: update particles and emitters
+    runtimeEngine.runtime = undefined;
+    clearCanvas( mainCanvas.ctx, blitCtx, w, h );
+    if (blitCtx.globalCompositeOperation !== contextBlendingMode) {
+        blitCtx.globalCompositeOperation = contextBlendingMode;
     }
-
-    // updates
-    updateCycle();
-
-    // debugging
-    displayDebugging(mainCanvas);
+    renderParticleArr(blitCtx, stores, logger);
+    mainCanvas.ctx.drawImage(blitEl, 0, 0);
+    updateParticleArr(stores, runtimeConfig, animation, logger, {w, h});
+    updateEmitterStoreMembers(emitters, logger);
 
     // looping
-    animation.state === true ? (runtimeEngine.startAnimation(runtime, update), counter++) : runtimeEngine.stopAnimation(runtime);
+    animation.state === true ?
+        (startAnimation(runtimeEngine.runtime, update), runtimeEngine.masterClock++) : stopAnimation(runtimeEngine.runtime);
 
-    // global clock
-    // counter++;
+    // canvas based debugging
+    displayDebugging(mainCanvas, false);
+    // console based debugging
+    logger.updateTime(runtimeEngine.masterClock);
+    logger.setEntityPoolCount(entityPool.getSize());
+    logger.setEntityArrayCount(entities.length);
+    logger.displayCounts(runtimeEngine.masterClock);
 }
-/////////////////////////////////////////////////////////////
-// End runtime
-/////////////////////////////////////////////////////////////
 
-initialiseUI(animation, update, mainCanvas, canvasConfig, emitterStore, entityStore, entityPool, emitEntities );
+initialiseUI(stores, animation, update, mainCanvas, canvasConfig, logger);
 
-initialiseEngine('initialEmitter', emitEntities, emitterStore, entityStore, entityPool, canvasConfig, animation, update);
+initialiseEngine('initialEmitter', stores, animation, update, canvasConfig, logger);

@@ -1,4 +1,15 @@
-import { canvasDrawingApi as drawing } from './canvasApiAugmentation.js';
+import { drawFillCircle } from './drawingFunctions/canvasApiAugmentation.js';
+
+function createWarpStarRenderConfig(w, h, x, y) {
+	return {
+		src: {
+			x: 0, y: 0, w: w, h: h
+		},
+		dest: {
+			x: x, y: y
+		}
+	}
+}
 
 let c = document.createElement( 'canvas' );
 let ctx = c.getContext( '2d' );
@@ -9,8 +20,8 @@ let blurBuffer = 5;
 c.width = 160 + ( blurBuffer * 2 );
 c.height = 100 + ( blurBuffer * 2 );
 
-cH = c.width / 2;
-cV = c.height / 2;
+const cH = c.width / 2;
+const cV = c.height / 2;
 
 // spot radius: ( 100 - 10 ) / 2 = 45 
 let cSR = ( c.height - ( blurBuffer * 2 ) ) / 2;
@@ -25,7 +36,6 @@ let redShift = cH + cSO;
 let blueShift = cH - cSO;
 
 function createWarpStarImage() {
-
 	let gRed = ctx.createRadialGradient( redShift, cV, 0, redShift, cV, cSR );
 	gRed.addColorStop( 0, 'rgba( 255, 0, 0, 1 )' );
 	gRed.addColorStop( 1, 'rgba( 255, 0, 0, 0 )' );
@@ -43,13 +53,13 @@ function createWarpStarImage() {
 	ctx.filter = "blur( 1px )";
 
 	ctx.fillStyle = gRed;
-	ctx.fillCircle( redShift, cV, cSR, c );
+	drawFillCircle( redShift, cV, cSR, ctx );
 
 	ctx.fillStyle = gGreen;
-	ctx.fillCircle( cH, cV, cSR, c );
+	drawFillCircle( cH, cV, cSR, ctx );
 
 	ctx.fillStyle = gBlue;
-	ctx.fillCircle( blueShift, cV, cSR, c );
+	drawFillCircle( blueShift, cV, cSR, ctx );
 
 
 	// ctx.translate( cH, cV );
@@ -63,20 +73,14 @@ function createWarpStarImage() {
 
 	// ctx.scale( 1, 2 );
 	// ctx.translate( -cH, -cV );
-
-	c.renderProps = {
-		src: {
-			x: 0, y: 0, w: c.width, h: c.height
-		},
-		dest: {
-			x: -cH, y: -cV
-		}
-	}
 	// console.log( 'c: ', c.renderProps );
-	const scratchPap = document.getElementById('warpStarImageCanvas');
-	scratchPap.append( c );
+	const scratchPad = document.getElementById('warpStarImageCanvas');
+	scratchPad.append( c );
 
-	return c;
+	return {
+		warpStarCanvas: c,
+		config: createWarpStarRenderConfig(c.width, c.height, -cH, -cV)
+	};
 
 }
 

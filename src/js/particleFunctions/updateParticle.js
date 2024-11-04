@@ -1,6 +1,5 @@
-import { easingEquations as easing } from './../easing.js';
-import { environment } from './../environment.js';
-// import { trigonomicUtils as trig } from './../trigonomicUtils.js';
+import { easingEquations as easing } from '../animationFunctions/easing.js';
+import { environment } from '../runtime/environment.js';
 var physics = environment.forces;
 
 var updateParticle = (particle, emitterArr) => {
@@ -8,6 +7,9 @@ var updateParticle = (particle, emitterArr) => {
     var p = particle;
     var totalLifeTicks = p.lifeSpan;
 
+    p.xOld = p.x;
+    p.yOld = p.y;
+    
     // position
     // p.x += p.xVel * p.magnitudeDecay;
     // p.y += p.yVel * p.magnitudeDecay;
@@ -15,9 +17,6 @@ var updateParticle = (particle, emitterArr) => {
     p.y += p.yVel;
 
     // p.vel = trig.dist( p.xOld, p.yOld, p.x, p.y );
-
-    p.xOld = p.x;
-    p.yOld = p.y;
 
     p.xVel *= p.vAcc;
     p.yVel *= p.vAcc;
@@ -44,42 +43,8 @@ var updateParticle = (particle, emitterArr) => {
     var currLifeTick = p.currLifeInv;
     // size (radius for circle)
 
-
     var animTracks = p.animationTracks;
     var animTracksLen = animTracks.length;
-
-    let thisAnim = p.animationTracks[ 0 ];
-
-    if ( thisAnim.active === true ) {
-        // console.log('anim track 1');
-        if ( thisAnim.currTick == 0 ) {
-            // console.log( 'anim start');
-            p[ thisAnim.param.path[ 0 ] ] = thisAnim.baseAmount;
-        } else {
-            // console.log( 'anim progress');
-            p[ thisAnim.param.path[ 0 ] ] = easing[ thisAnim.easing ]( thisAnim.currTick, thisAnim.baseAmount, thisAnim.targetAmount, thisAnim.duration );
-        }
-        
-
-        if ( p.idx == 9987 ) {
-            // console.log( 'thisValue: ', thisValue );
-            // console.log( 'thisAnim.param.path[ 0 ]: ', thisAnim.param.path[ 0 ] );
-            // console.log( 'thisAnim.baseAmount: ', thisAnim.baseAmount );
-            // console.log( 'thisAnim.targetValuePath: ', thisAnim.targetAmount );
-            // console.log( 'thisAnim.duration: ', thisAnim.duration );
-        }
-
-        // console.log( 'thisValue: ', thisValue );
-        // p[ thisAnim.param.path[ 0 ] ] = thisValue;
-
-        thisAnim.currTick++;
-
-        if ( thisAnim.currTick >= thisAnim.duration ) {
-            thisAnim.active = false;
-        }
-    }
-
-
 
     if ( animTracks && animTracksLen > 0 ) {
         // console.log('has anim tracks');
@@ -87,23 +52,17 @@ var updateParticle = (particle, emitterArr) => {
             // console.log( 'i', i );
             // console.log('anim no.',i);
             let t = animTracks[i];
-            const { active, param, currTick, baseAmount, targetAmount, duration, easing: ease } = t;
+            const { animName, active, param, type, paramPath, currTick, baseAmount, targetAmount, duration, easing: ease } = t;
 
             if (active === true) {
-
-                let pPath = param.path,
-                    pLen = param.pathLen;
-                if (pLen === 1) {
-                    p[pPath[0]] = easing[ease](currTick, baseAmount, targetAmount, duration )
+                let amount = t.currTick === 0 ? t.baseAmount : easing[ease](currTick, baseAmount, targetAmount, duration);
+                if (type === 'color') {
+                    p.color4Data[paramPath] = amount;
                 }
-                if (pLen === 2) {
-                    p[pPath[0]][pPath[1]] = easing[ease](currTick, baseAmount, targetAmount, duration )
+                if (type === 'param') {
+                    p[paramPath] = amount;
                 }
-                if (pLen === 3) {
-                    p[pPath[0]][pPath[1]][pPath[2]] = easing[ease]( currTick, baseAmount, targetAmount, duration )
-                }
-
-                t.currTick++;
+                p.animationTracks[ i ].currTick++;
 
                 if (currTick >= t.duration) {
                     t.active = false;
@@ -158,6 +117,7 @@ var updateParticle = (particle, emitterArr) => {
 
     // life taketh away
     p.currLife--;
+    // console.log('p', p);
 };
 
 export { updateParticle };

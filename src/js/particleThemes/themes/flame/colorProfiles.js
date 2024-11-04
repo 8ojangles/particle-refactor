@@ -10,7 +10,14 @@ const colorProfiles = [
 		g: 0,
 		b: 0,
 		a: 1
+	},
+	{
+		r: 255,
+		g: 0,
+		b: 0,
+		a: 0
 	}
+
 ];
 
 export { colorProfiles };
