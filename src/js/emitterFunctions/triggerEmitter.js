@@ -1,5 +1,5 @@
-import { randomInteger } from "../mathFunctions/mathUtils";
-import { emitEntities } from "./emitterStore";
+import { randomInteger } from "../mathFunctions/mathUtils.js";
+import { emitEntities } from "./emitterStore.js";
 
 /**
  * @description Updates the EmitterEntity emission values saved to <initValues> on creation.

@@ -79,6 +79,8 @@
  * @param {number} totalIterations - the total time/iterations for the change
  * @returns {number} - The value at the current iteration as computed by the easing
  */
+
+/** @type {EasingEquation} */
 export function linearEase(currentIteration, startValue, changeInValue, totalIterations) {
 	return changeInValue * currentIteration / totalIterations + startValue;
 }

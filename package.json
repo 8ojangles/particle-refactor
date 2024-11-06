@@ -6,12 +6,12 @@
   "type": "module",
   "scripts": {
     "test": "test",
-    "build": "node esbuild/esbuild.js",
-    "buildjs": "node esbuild/esbuildjsonly.js",
-    "start": "node esbuild/serve.js",
-    "watch": "node esbuild/serve.js --watch --servedir=dist",
+    "build": "node esbuild/esbuild.js && npm run buildDocs",
+    "buildjs": "node esbuild/esbuildjsonly.js && npm run buildDocs",
+    "start": "node esbuild/serve.js && npm run buildDocs",
+    "watch": "node esbuild/serve.js --watch --servedir=dist && npm run buildDocs",
     "analyze": "node esbuild/analyse.js",
-    "buildDocs": "documentation build src/js/** -f html --github -o docs --config documentationConfig.yml"
+    "buildDocs": "documentation build src/js/** -f html --github -o dist/docs --config documentationConfig.yml"
   },
   "repository": {
     "type": "git",

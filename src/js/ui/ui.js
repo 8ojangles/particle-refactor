@@ -10,7 +10,7 @@ import {
     unregisterMouseMove,
     registerMouseClickEmission,
     unregisterMouseClickEmission
-} from './uiFunctions';
+} from './uiFunctions.js';
 
 // const toggleClassStr = 'is-selected';
 

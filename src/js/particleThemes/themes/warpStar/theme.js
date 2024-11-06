@@ -7,7 +7,7 @@ import { renderProfiles } from './renderProfiles.js';
 import { colorProfiles } from './colorProfiles.js';
 
 const warpStarTheme = {
-    contextBlendingMode: 'source-over',
+    contextBlendingMode: 'lighter',
     active: 1,
     life: { min: 50, max: 100 },
     angle: { min: 0, max: 2 },

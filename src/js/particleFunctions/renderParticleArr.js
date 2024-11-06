@@ -1,4 +1,4 @@
-import { clearRenderStore } from "../stores/renderStore";
+import { clearRenderStore } from "../stores/renderStore.js";
 /**
  * @description given an array of Particles: (1) Stops animation (stops the update loop) and Returns early if <renderStore> length is 0. (2)Loops through <renderStore> (array of active particle indexes) using each entry as index lookup in <arr> Particle array, renders particle. (3) increments <rendered> counter to log out to logger. (4) Clears <renderStore> array at end of loop ready for update function.
  * @param {CanvasRenderingContext2D} ctx - Canvas context to render to
@@ -11,7 +11,7 @@ function renderParticleArr(ctx, stores, logger) {
 
     const renderStoreLen = renderEntities.length;
     if (renderStoreLen === 0) {
-        console.log('%c No particles rendered', 'color: #dddd00');
+        // console.log('%c No particles rendered', 'color: #dddd00');
         return;
     }
     let rendered = 0;
@@ -20,7 +20,7 @@ function renderParticleArr(ctx, stores, logger) {
         rendered++;
         p.render( p.x, p.y, p.r, p.color4Data, ctx );
     }
-    clearRenderStore(stores.renderEntities);
+    stores.clearRenderStore();
     logger.setParticlesRendered(rendered);
 };
 

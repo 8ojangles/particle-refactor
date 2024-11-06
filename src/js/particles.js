@@ -5,7 +5,7 @@ import { updateParticleArr, renderParticleArr } from './particleFunctions/partic
 import { presetThemeNames } from './themeUtils.js';
 import { initialiseUI, setParticlePreset } from './ui/ui.js';
 import { displayDebugging, logger } from './debugUtils.js';
-import { stores } from './stores/stores.js';
+import { stores as mainStore } from './stores/stores.js';
 
 const { runtimeEngine } = environment;
 const { startAnimation, stopAnimation } = runtimeEngine;
@@ -14,9 +14,10 @@ const { startAnimation, stopAnimation } = runtimeEngine;
 const canvasConfig = createCanvasConfig();
 const { w, h, canvases } = canvasConfig;
 const { main: mainCanvas, blit: blitCanvas } = canvases;
+const stores = mainStore;
 
 // setup for initial particle examples
-setParticlePreset(presetThemeNames.warpedstars, canvasConfig);
+setParticlePreset(presetThemeNames.flames, canvasConfig);
 logger.setDisplay(true);
 
 // runtime
@@ -49,12 +50,12 @@ function update() {
         (startAnimation(runtimeEngine.runtime, update), runtimeEngine.masterClock++) : stopAnimation(runtimeEngine.runtime);
 
     // canvas based debugging
-    displayDebugging(mainCanvas, false);
+    // displayDebugging(mainCanvas, false);
     // console based debugging
-    logger.updateTime(runtimeEngine.masterClock);
-    logger.setEntityPoolCount(entityPool.getSize());
-    logger.setEntityArrayCount(entities.length);
-    logger.displayCounts(runtimeEngine.masterClock);
+    // logger.updateTime(runtimeEngine.masterClock);
+    // logger.setEntityPoolCount(entityPool.getSize());
+    // logger.setEntityArrayCount(entities.length);
+    // logger.displayCounts(runtimeEngine.masterClock);
 }
 
 initialiseUI(stores, animation, update, mainCanvas, canvasConfig, logger);

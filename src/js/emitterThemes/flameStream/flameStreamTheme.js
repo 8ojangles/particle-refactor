@@ -33,8 +33,8 @@ const flameStreamTheme = {
 		// initial direction of particles
 		direction: {
 			rad: 0, // in radians (0 - 2)
-			min: 1.40, // low bounds (radians)
-			max: 1.55 // high bounds (radians)
+			min: 1.5, // low bounds (radians)
+			max: 1.5 // high bounds (radians)
 		},
 		// are particles offset from inital x/y
 		radialDisplacement: 0,

@@ -2,10 +2,10 @@ const killConditions = {
     boundaryCheck: true,
     boundaryParts: {
         all: true,
-        top: true,
-        right: true,
-        bottom: true,
-        left: true
+        top: false,
+        right: false,
+        bottom: false,
+        left: false
     },
     boundaryOffset: 200,
     colorCheck: [],

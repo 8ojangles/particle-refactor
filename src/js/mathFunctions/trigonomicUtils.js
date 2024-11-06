@@ -1,33 +1,11 @@
-/**
- * @typedef {Object} Point
- * @property {number} x - the x coordinate of the point
- * @property {number} y - the y coordinate of the point
- */
+// @ts-ignore
+import { Point, Circle, Line, TangentResult, VelocityVector } from './trigonomic-types.d.js';
 
 /**
- * @typedef {Object} Circle
- * @property {number} x - the x coordinate of the circle's centre
- * @property {number} y - the y coordinate of the circle's centre
- * @property {number} r - the radius of the circle
- */
-
-/**
- * @typedef {Object} Line
- * @property {Point} start - the x/y coordinates for the start of the line 
- * @property {Point} end - the x/y coordinates for the end of the line
- */
-
-/**
- * @typedef {Object} TangentResult
- * @property {Line} line1 the x/y coordinates for the start and end of the first tangent 
- * @property {Line} line2 the x/y coordinates for the start and end of the first tangent 
- */
-
-/**
- * @typedef {Object} VelocityVector
- * @property {number} xVel - speed along the x axis
- * @property {number} yVel - speed along the y axis
- */
+ * @typedef {Object} Calculation
+ * @property {number} distance The distance between vectors
+ * @property {number} angle The angle between vectors
+*/
 
 /**
 * cached values
@@ -96,16 +74,14 @@ function radiansToDegrees(radians) {
 }
 
 /**
+ * @function getAngleAndDistance
  * @description calculate trigomomic values between 2 vector coordinates.
  * @param {number} x1 - X coordinate of vector 1.
  * @param {number} y1 - Y coordinate of vector 1.
  * @param {number} x2 - X coordinate of vector 2.
  * @param {number} y2 - Y coordinate of vector 2.
- * @typedef {Object} Calculation
- * @property {number} distance The distance between vectors
- * @property {number} angle The angle between vectors
- * @returns { Calculation } the calculated angle and distance between vectors
- */
+ * @returns {Calculation} Calculation - the calculated angle and distance between vectors
+*/
 function getAngleAndDistance(x1, y1, x2, y2) {
 	// set up base values
 	const dX = x2 - x1;
@@ -123,22 +99,24 @@ function getAngleAndDistance(x1, y1, x2, y2) {
 }
 
 /**
-* @description get new X coordinate from angle and distance.
-* @param {number} radians - the angle to transform in radians.
-* @param {number} distance - the distance to transform.
-* @returns {number} result.
+ * @function getAdjacentLength
+ * @description get new X coordinate from angle and distance.
+ * @param {number} radians - the angle to transform in radians.
+ * @param {number} distance - the distance to transform.
+ * @returns {number} result.
 */
 function getAdjacentLength(radians, distance) {
 	return Math.cos(radians) * distance;
 }
 
 /**
-* @description given an origin in x/y coordinates, get new x/y coordinates from angle and distance.
-* @param {number} x - the x coordinate of the origin.
-* @param {number} y - the y coordinate of the origin.
-* @param {number} angle - the angle to transform in radians.
-* @param {number} distance - the distance to transform.
-* @returns {Point} the new coordinate object with x/y values.
+ * @function findNewPoint
+ * @description given an origin in x/y coordinates, get new x/y coordinates from angle and distance.
+ * @param {number} x - the x coordinate of the origin.
+ * @param {number} y - the y coordinate of the origin.
+ * @param {number} angle - the angle to transform in radians.
+ * @param {number} distance - the distance to transform.
+ * @returns {Point} Point - the new coordinate object with x/y values.
 */
 function findNewPoint(x, y, angle, distance) {
 	return {
@@ -148,12 +126,13 @@ function findNewPoint(x, y, angle, distance) {
 }
 
 /**
-* @description given an origin (x/y), angle (radians) and impulse (number, represents a value, for example: pixels), return the velocity vector.
-* @param {number} x - the x coordinate of the origin.
-* @param {number} y - the y coordinate of the origin.
-* @param {number} angle - the angle to transform in radians.
-* @param {number} impulse - the speed along the vector.
-* @returns {VelocityVector} the velocity vector for x/y movement.
+ * @function calculateVelocities
+ * @description given an origin (x/y), angle (radians) and impulse (number, represents a value, for example: pixels), return the velocity vector.
+ * @param {number} x - the x coordinate of the origin.
+ * @param {number} y - the y coordinate of the origin.
+ * @param {number} angle - the angle to transform in radians.
+ * @param {number} impulse - the speed along the vector.
+ * @returns {VelocityVector}
 */
 function calculateVelocities(x, y, angle, impulse) {
 	var a2 = Math.atan2(Math.sin(angle) * impulse + y - y, Math.cos(angle) * impulse + x - x);
@@ -164,12 +143,13 @@ function calculateVelocities(x, y, angle, impulse) {
 }
 
 /**
-* @description given an origin in x/y coordinates, get new x/y coordinates from angle and distance.
-* @param {number} x - the x coordinate of the origin.
-* @param {number} y - the y coordinate of the origin.
-* @param {number} d - the distance to transform.
-* @param {number} a - the angle to transform in radians.
-* @returns {Point} the new coordinate object with x/y values.
+ * @function radialDistribution
+ * @description given an origin in x/y coordinates, get new x/y coordinates from angle and distance.
+ * @param {number} x - the x coordinate of the origin.
+ * @param {number} y - the y coordinate of the origin.
+ * @param {number} d - the distance to transform.
+ * @param {number} a - the angle to transform in radians.
+ * @returns {Point} the new coordinate object with x/y values.
 */
 function radialDistribution(x, y, d, a) {
 	return {
@@ -179,6 +159,7 @@ function radialDistribution(x, y, d, a) {
 }
 
 /**
+ * @function getTangentPoints
  * @description given coordinates and radii of 2 circles, calculate the start and end points for the 2 lines of tangent between the circles edges.
  * @param {Circle} c1 - x/y/r for the first Circle.
  * @param {Circle} c2 - x/y/r for the second Circle.
@@ -247,6 +228,23 @@ function getTangentPoints(c1, c2) {
 }
 
 /**
+ * @function circleInsideCircle
+ * @description calculate if Circle 2 lies inside circle 1 
+ * @param {number} x1 - X coordinate of Circle 1.
+ * @param {number} y1 - Y coordinate of Circle 1.
+ * @param {number} r1 - Y coordinate of Circle 1.
+ * @param {number} x2 - X coordinate of Circle 2.
+ * @param {number} y2 - Y coordinate of Circle 2.
+ * @param {number} r2 - Y coordinate of Circle 1.
+ * @returns {boolean} result.
+*/
+function circleInsideCircle(x1, y1, r1, x2, y2, r2) {
+    const distance = Math
+        .sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+    return distance + r1 < r2;
+}
+
+/**
 * provides trigonmic util methods.
 *
 * @mixin
@@ -262,7 +260,8 @@ const trigonomicUtils = {
 	dist,
 	angle,
 	angle2,
-	getTangentPoints
+	getTangentPoints,
+	circleInsideCircle
 }
 
 export {
@@ -277,5 +276,6 @@ export {
 	dist,
 	angle,
 	angle2,
-	getTangentPoints
+	getTangentPoints,
+	circleInsideCircle
 };

@@ -1,4 +1,4 @@
-import { triggerEmitter } from "./triggerEmitter";
+import { triggerEmitter } from "./triggerEmitter.js";
 
 function processEmitterUpdateOptions(emitter, emitterUpdateOpts) {
     const { updates, logger } = emitterUpdateOpts;

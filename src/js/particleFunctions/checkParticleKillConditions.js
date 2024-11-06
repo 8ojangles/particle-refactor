@@ -1,6 +1,6 @@
 /**
  * @description given a {Particle}s "killConditions" data, check against conditions. Return True if conditions met.
- * @param {import("./createParticleFns").Particle} p - The particle to check
+ * @param {import("./createParticleFns.js").Particle} p - The particle to check
  * @param {number} canW - canvas width to check for offscreen boundary conditons
  * @param {number} canH - canvas height to check for offscreen boundary conditons
  * @returns {boolean}

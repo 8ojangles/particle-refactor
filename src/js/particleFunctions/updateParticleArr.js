@@ -31,7 +31,7 @@ const updateParticleArr = (stores, entityCounter, animation, logger, {w, h}) => 
                 killedP++;
             } else {
                 updateParticle(p, emitters);
-                addToRenderStore(renderEntities, i);
+                stores.addToRenderStore(i);
             }
         }
     } // end For loop

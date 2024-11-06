@@ -1,5 +1,25 @@
 toc:
-  - name: Animation
+  - name: Types
+    description: |
+      Schema for types used in the application.
+    children:
+      - name: Trigonometry
+        description: |
+          Schema for trigonometry types used in the application.
+        children:
+          - Point
+          - Line
+          - Circle
+          - TangentResult
+          - VelocityVector
+      - name: Drawing
+        description: |
+          Schema for drawing types used in the application.
+        children:
+          - strokeOptions
+          - fillOptions
+          
+  - name: Animation Functions
     description: |
       Easing functions available for use in the application. All easing equations are functions returning a value between start<startValue> and end values (<startValue> + <changeInValue>) at the current iteration<currentIteration> proportional to the total iterations<totalIterations>. The value is calculated along the curve represented by the easing equation on value/time axis. Visual examples of easing curves can be seen here: [Easing Equations](https://easings.net/)
     children:
@@ -38,3 +58,35 @@ toc:
       - easeOutBounce
       - easeInOutBounce
       - easingEquations
+
+  - name: Trigonometry Functions
+    description: |
+      List of trigonometry functions used in the application.
+    children:
+      - dist
+      - angle
+      - angle2
+      - getTangentPoints
+      - radialDistribution
+      - calculateVelocities
+      - findNewPoint
+      - getAdjacentLength
+      - radiansToDegrees
+      - degreesToRadians
+      - circleInsideCircle
+      - getAngleAndDistance
+
+  - name: Drawing Functions
+    description: |
+      List of drawing functions extending the CanvasRenderingContext2D.
+    children:
+      - drawCircle
+      - drawFillCircle
+      - drawStrokeCircle
+      - drawEllipse
+      - drawStrokeEllipse
+      - drawFillEllipse
+      - drawLine
+      - drawStrokeDroplet
+      - drawFillDroplet
+      

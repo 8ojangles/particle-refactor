@@ -14,6 +14,7 @@ const nunjucksPlugin = (options) => ({
         //     }
         // );
 
+        // @ts-ignore
         const env = new nunjucks.configure(
             'src',
             { 

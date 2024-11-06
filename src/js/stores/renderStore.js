@@ -1,6 +1,7 @@
 const renderStore = [];
 
 function clearRenderStore(store) {
+    console.log('clearRenderStore', store);
     store = [];
 }
 
