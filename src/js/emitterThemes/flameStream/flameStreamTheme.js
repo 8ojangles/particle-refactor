@@ -13,8 +13,8 @@ const flameStreamTheme = {
 	// emission rate config (per cycle ( frame ) )
 	emission: {
 		rate: {
-			min: 10,
-			max: 20,
+			min: 15,
+			max: 40,
 			decay: {
 				rate: 0,
 				decayMax: 0
@@ -33,8 +33,8 @@ const flameStreamTheme = {
 		// initial direction of particles
 		direction: {
 			rad: 0, // in radians (0 - 2)
-			min: 1.5, // low bounds (radians)
-			max: 1.5 // high bounds (radians)
+			min: 1.45, // low bounds (radians)
+			max: 1.55 // high bounds (radians)
 		},
 		// are particles offset from inital x/y
 		radialDisplacement: 0,
@@ -43,8 +43,8 @@ const flameStreamTheme = {
 		//initial velocity of particles
 		impulse: {
 			pow: 0,
-			min: 2,
-			max: 4
+			min: 1,
+			max: 2
 		}
 	}
 };

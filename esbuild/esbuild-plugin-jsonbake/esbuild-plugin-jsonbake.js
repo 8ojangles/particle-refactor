@@ -62,7 +62,7 @@ const jsonbakePlugin = (opts) => ({
             ...opts
         };
 
-        build.onLoad({ filter: /\.(json)$/ }, async (args) => {
+        build.onLoad({ filter: /\.(json)$/ }, (args) => {
             // Merge user options with default options, without defaultIncludeFiles
             if (args.path.includes('partials')) {
                 return;

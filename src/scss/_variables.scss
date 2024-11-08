@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 ///////////////////////// colors
 
 // black - white
@@ -23,7 +25,17 @@ $blue-medium: #0055ff;
 // errors
 $error-red: $red-light;
 
+$theme-blue: #0055ff;
+$theme-blue-dark: #001133;
 
+$theme-purple: #503D99;
+$theme-deep-blue: #3914CC;
+
+$theme-orange: #FF9C0D;
+$theme-orange-light: #FFB140;
+
+
+$theme-brown: #CC6714;
 
 ///////////////////////// page items
 $chair-color: $red-darkest;
@@ -35,6 +47,10 @@ $chair-hover-color-change: 40%;
 
 ///////////////////////// page rhythm
 $standard-spacing: 1rem;
+
+$small-spacing: math.div($standard-spacing, 2);
+$smaller-spacing: math.div($standard-spacing, 4);
+
 $large-spacing: $standard-spacing * 2;
 
 
@@ -78,6 +94,30 @@ $chair-hover-color-change: 40%;
 
 $chair-border-radius: $br-std;
 
+
+///////////////////////// page items
+
+// control panel
+
+$cp-bg-color: $theme-blue-dark;
+
+// item
+$control-panel-item-header-color: $blue-medium;
+$control-panel-item-header-color-active: $theme-orange;
+$control-panel-item-header-color-active-hover: $theme-orange-light;
+
+$lip-glint-width: 70%;
+$lip-glint-x: math.div(100% - $lip-glint-width, 2);
+
+$lip-glint-height: 2px;
+$lip-glint-y: -$lip-glint-height;
+
+
+$lip-shade-width: 90%;
+$lip-shade-x: math.div(100% - $lip-shade-width, 2);
+
+$lip-shade-height: 2px;
+$lip-shade-y: -$lip-shade-height;
 
 // spinner
 

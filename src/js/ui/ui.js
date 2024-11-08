@@ -2,6 +2,7 @@
 // import { triggerEmitter } from '../emitterFunctions/triggerEmitter.js';
 import { particleThemeNames, emitterThemeNames, emissionPointNames, emissionTypeNames, presetThemeNames } from '../themeUtils.js';
 import {
+    getEls,
     toggleClassStr,
     uiListToggleHandler,
     buildUISelectorList,
@@ -11,6 +12,98 @@ import {
     registerMouseClickEmission,
     unregisterMouseClickEmission
 } from './uiFunctions.js';
+
+const menuPageSelectControls = getEls('.js-page-select');
+
+const menuPages = getEls('[data-control-panel-page]');
+
+let pageAnimClassList = ['is-active', 'to-left', 'from-left', 'to-right', 'from-right'];
+	
+menuPageSelectControls.forEach((control) => {
+
+	control.addEventListener('click', (e) => {
+		e.preventDefault();
+		const el = e.currentTarget;
+
+        // @ts-ignore
+		if ( el.classList.contains('is-active') ) {
+			return;
+		}
+
+		// @ts-ignore
+		const selectsPage = el.getAttribute('data-page-select');
+		const currentPage = getEls('.control--panel__page.is-active')[0];
+		// @ts-ignore
+		const currentPageOrder = currentPage.getAttribute('data-page-order');
+		const newPage = getEls(`[data-page="${selectsPage}"]`)[0];
+		// @ts-ignore
+		const newPageOrder = newPage.getAttribute('data-page-order');
+		const isNewPageOrderGreater = newPageOrder > currentPageOrder ? true : false;
+		const introClass = isNewPageOrderGreater ? 'from-right' : 'from-left';
+		const outroClass = isNewPageOrderGreater ? 'to-left' : 'to-right';
+
+        console.log('currentPageOrder: ', currentPageOrder, 'newPageOrder: ', newPageOrder, 'isNewPageOrderGreater: ', isNewPageOrderGreater, 'introClass: ', introClass, 'outroClass: ', outroClass);
+
+        menuPages.forEach((page) => {
+            const pageOrder = page.getAttribute('data-page-order');
+            const isOtherPage = pageOrder !== currentPageOrder && pageOrder !== newPageOrder;
+            // @ts-ignore
+            page.classList.remove(...pageAnimClassList);
+            if (pageOrder === currentPageOrder) {
+                page.classList.add(outroClass);
+            }
+            if (pageOrder === newPageOrder) {
+                page.classList.add('is-active', introClass);
+            }
+            if (isOtherPage) {
+                if (pageOrder < newPageOrder) {
+                    page.classList.add('to-left');
+                }
+                if (pageOrder > newPageOrder) {
+                    page.classList.add('to-right');
+                }
+            }
+        });
+        // @ts-ignore
+        menuPageSelectControls.forEach((item) => {
+            item.classList.remove('is-active');
+        });
+        // @ts-ignore
+        el.classList.add('is-active');
+
+	});
+
+});
+
+const menuAccordionToggleControls = getEls('.js-section-toggle');
+
+menuAccordionToggleControls.forEach((control) => {
+    control.addEventListener('click', (e) => {
+        const parent = e.currentTarget.closest('.control--panel__section');
+        const parentActive = parent.classList.contains('is-active');
+        if (parentActive) {
+            parent.classList.remove('is-active');
+        } else {
+            parent.classList.add('is-active');
+        }
+    });
+});
+
+// $( '.js-section-toggle' ).click( function( e ){
+//     let $parent = $( this ).closest( '.control--panel__section' );
+//     let parentActive = $parent.hasClass( 'is-active' ) ? true : false;
+//     let thisHeight = $parent.attr( 'data-open-height' );
+//     if ( parentActive ) {
+//         $parent.removeClass( 'is-active' ).find( 'fieldset' ).css( {
+//             'height': '0'
+//         } ) ;
+//     } else {
+//         $parent.addClass( 'is-active' ).find( 'fieldset' ).css( {
+//             'height': thisHeight+'px'
+//         } );
+//     }
+
+// } );
 
 // const toggleClassStr = 'is-selected';
 
@@ -144,7 +237,7 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
         'js-selection-particle'
     );
 
-    const particleItems = document.querySelectorAll('.js-selection-particle');
+    const particleItems = getEls('.js-selection-particle');
     particleUIListContainer.addEventListener(
         'click', 
         (e) => {
@@ -164,7 +257,7 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
         'js-selection-emitter'
     );
 
-    const emitterItems = document.querySelectorAll('.js-selection-emitter');
+    const emitterItems = getEls('.js-selection-emitter');
     emitterUIListContainer.addEventListener(
         'click', 
         (e) => {
@@ -184,7 +277,7 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
         'js-selection-emission-point'
     );
 
-    const emissionPointItems = document.querySelectorAll('.js-selection-emission-point');
+    const emissionPointItems = getEls('.js-selection-emission-point');
     document.querySelector('.js-emission-point-list').addEventListener(
         'click', 
         (e) => {
@@ -215,7 +308,7 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
         'js-selection-emission-type'
     );
 
-    const emissionTypeItems = document.querySelectorAll('.js-selection-emission-type');
+    const emissionTypeItems = getEls('.js-selection-emission-type');
     emissionUIListContainer.addEventListener(
         'click', 
         (e) => {
@@ -234,7 +327,7 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
         }
     );
 
-    const animControlButtons = document.querySelectorAll('.js-anim-control');
+    const animControlButtons = getEls('.js-anim-control');
     document.querySelector('.js-anim-start').addEventListener(
         'click',
         ({target}) => {

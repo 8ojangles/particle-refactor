@@ -1,8 +1,10 @@
-import { createEmitterEntity } from "../emitterFunctions/createEmitterEntity";
-import { triggerEmitter } from "../emitterFunctions/triggerEmitter";
-import { presetThemeNames, particleThemeNames, emitterThemeNames, emissionTypeNames, emissionPointNames } from "../themeUtils";
+import { createEmitterEntity } from "../emitterFunctions/createEmitterEntity.js";
+import { triggerEmitter } from "../emitterFunctions/triggerEmitter.js";
+import { presetThemeNames, particleThemeNames, emitterThemeNames, emissionTypeNames, emissionPointNames } from "../themeUtils.js";
 
 const toggleClassStr = 'is-selected';
+
+const getEls = document.querySelectorAll.bind(document);
 
 function buttonSelectedToggle(target, item) {
     return target === item && !target.classList.contains(toggleClassStr);
@@ -121,6 +123,7 @@ function unregisterMouseClickEmission(canvasEl) {
 }
 
 export {
+    getEls,
     toggleClassStr,
     buttonSelectedToggle,
     uiListToggleHandler,

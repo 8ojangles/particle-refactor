@@ -7,7 +7,7 @@ const animationTracks = [
         baseAmount: 'initR',
         targetValuePath: 'tR',
         duration: 'life',
-        easing: 'easeInExpo',
+        easing: 'easeInCubic',
         linkedAnim: false
     },
     {
@@ -19,7 +19,20 @@ const animationTracks = [
             from: {profile: 0, color: 'g'},
             to: {profile: 1, color: 'g'}
         },
-        duration: 0.4,
+        duration: 0.3,
+        easing: 'easeInQuart',
+        linkedAnim: false
+    },
+    {
+        animName: 'color4DataChangeRed',
+        type: 'color',
+        active: true,
+        param: 'r',
+        colorChange: {
+            from: {profile: 0, color: 'r'},
+            to: {profile: 1, color: 'r'}
+        },
+        duration: 0.5,
         easing: 'easeInQuart',
         linkedAnim: false
     },

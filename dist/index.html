@@ -1,3 +1,6 @@
+
+
+
 <!doctype html>
 <html class="no-js" lang="">
 
@@ -31,28 +34,99 @@
 	</div>
 
 	<div id="warpStarImageCanvas"></div>
-	<div class="menu">
-	<p>Particle Type</p>
-    <ul id="particleThemeSelection" class="selection-list selection-list-small js-particle-selection-list">
+	<div class="control--panel">
+    <header class="js-menu-header">
+        <button data-page-select="page-presets" class="js-page-select page-elements is-active">Presets</button>
+        <button data-page-select="page-emitter" class="js-page-select page-anims">Emitter</button>
+        <button data-page-select="page-particle" class="js-page-select page-anims">Particle</button>
+    </header>
+    <div class="control--panel__page-wrapper">
         
-    </ul>
-	<p>Emitter Type</p>
-    <ul id="emitterThemeSelection" class="selection-list selection-list-small js-emitter-selection-list">
-        
-    </ul>
-    <p>Emission Point</p>
-    <ul id="emissionPointSelection" class="selection-list js-emission-point-list">
-        
-    </ul>
-    <p>Emission Type</p>
-    <ul id="emissionTypeSelection" class="selection-list js-emission-type-list">
-        
-    </ul>
-    <p>Animation</p>
-    <div class="btn-box">
-        <button id="animstart" class="js-anim-control js-anim-start">Start</button>
-        <button id="animstop" class="js-anim-control js-anim-stop">Stop</button>
+        <div data-control-panel-page data-page="page-presets" class="control--panel__page is-active" data-page-order="1">
+
+            <section class="control--panel__section section-aim-target is-active">
+                <div class="panel--content">
+                    
+<header class="js-section-toggle">
+	<span class="section-title">Particle Theme</span>
+	<button class="section-toggle">
+		<span class="js-toggle-icon toggle-icon">&#x25BC;</span>
+	</button>
+</header>
+
+                    <fieldset>
+                        <div class="controls-wrapper">
+                            <ul id="particleThemeSelection" class="selection-list selection-list-small js-particle-selection-list"></ul>
+                        </div>
+                    </fieldset>
+                </div>
+            </section>
+            <section class="control--panel__section section-aim-target">
+                <div class="panel--content">
+                    
+<header class="js-section-toggle">
+	<span class="section-title">Emitter Theme</span>
+	<button class="section-toggle">
+		<span class="js-toggle-icon toggle-icon">&#x25BC;</span>
+	</button>
+</header>
+
+                    <fieldset>
+                        <ul id="emitterThemeSelection" class="selection-list selection-list-small js-emitter-selection-list"></ul>
+                    </fieldset>
+                </div>
+            </section>
+            <section class="control--panel__section section-aim-target">
+                <div class="panel--content">
+                    
+<header class="js-section-toggle">
+	<span class="section-title">Emitter Position</span>
+	<button class="section-toggle">
+		<span class="js-toggle-icon toggle-icon">&#x25BC;</span>
+	</button>
+</header>
+
+                    <fieldset>
+                        <ul id="emissionPointSelection" class="selection-list js-emission-point-list"></ul>
+                    </fieldset>
+                </div>
+            </section>
+            <section class="control--panel__section section-aim-target">
+                <div class="panel--content">
+                    
+<header class="js-section-toggle">
+	<span class="section-title">Emission Type</span>
+	<button class="section-toggle">
+		<span class="js-toggle-icon toggle-icon">&#x25BC;</span>
+	</button>
+</header>
+
+                    <fieldset>
+                        <ul id="emissionTypeSelection" class="selection-list js-emission-type-list"></ul>
+                    </fieldset>
+                </div>
+            </section>
+
+        </div>
+
+        <div data-control-panel-page data-page="page-emitter" class="control--panel__page" data-page-order="2">
+            <p> testing page 2</p>
+        </div>
+
+        <div data-control-panel-page data-page="page-particle" class="control--panel__page" data-page-order="3">
+            <p> testing page 3</p>
+        </div>
     </div>
+
+	<footer class="control--panel__footer">
+        <div class="footer-content">
+            <h3 class="footer-title">Animation Controls</h3>
+            <div class="btn-box btn-group">
+                <button id="animstart" class="js-anim-control js-anim-start button">Start</button>
+                <button id="animstop" class="js-anim-control js-anim-stop button">Stop</button>
+            </div>
+        </div>
+    </footer>
 </div>
 
     </main>

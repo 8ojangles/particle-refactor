@@ -11,6 +11,7 @@ function renderFn(x, y, r, colorData, ctx) {
     const offsetMap = mapValues(p.currLifeInv, 0, p.lifeSpan, 0, 1, true);
     // console.log(`offsetMap: ${offsetMap}`);
     // var newAngle = getAngleAndDistance(x, y, x + p.xVel, y + p.yVel);
+    var newAngle = getAngleAndDistance(x, y, 0, y + p.yVel);
     // if (ctx.globalCompositeOperation !== 'lighter') {
     //     ctx.globalCompositeOperation = 'lighter';
     // }
@@ -35,7 +36,7 @@ function renderFn(x, y, r, colorData, ctx) {
     grd.addColorStop(1, rgba(rd, gr, bl, 0));
     ctx.fillStyle = grd;
 
-    // ctx.rotate(newAngle.angle);
+    ctx.rotate(newAngle.angle);
     drawFillEllipse(0, 0, r, r * stretchVal, ctx);
     ctx.restore();
 }

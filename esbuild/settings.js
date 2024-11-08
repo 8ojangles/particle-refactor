@@ -28,7 +28,8 @@ export function createBuildSettings(options) {
         plugins: [
             clean({
                 patterns: [
-                    './dist/*',
+                    './dist/js/*',
+                    './dist/scss/*',
                     './dist/assets/*.map.js'
                 ],
                 cleanOnStartPatterns: [
@@ -63,7 +64,7 @@ export function createBuildSettings(options) {
                   to: ['./dist/assets'],
                 },
                 watch: true,
-            }),
+            })
         ],
         minify: true,
         sourcemap: true,

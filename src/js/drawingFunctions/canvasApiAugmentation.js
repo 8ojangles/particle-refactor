@@ -116,7 +116,7 @@ function drawLine(x1, y1, x2, y2, ctx) {
 * @description API to draw outline of 2 circles connected via their tangent lines into single shape. If the second Circle lies inside the first then only the first circle will be drawn.
 * @param {Circle} c1 - x/y/r for the first circle.
 * @param {Circle} c2 - x/y/r for the first circle.
-* @param {CanvasRenderingContext2D} ctx - the canvas context to draw the shape on
+* @param {CanvasRenderingContext2D} ctx - the canvas context
 * @param {strokeOptions} strokeOptions - Optional: The stroke options for the shape. Defaults to: color: "White", lineWidth: 2, lineCap: "round"
 * @default [strokeOptions: {color: 'white', lineWidth: 2, lineCap: 'round'}]
 */
