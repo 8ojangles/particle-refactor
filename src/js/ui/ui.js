@@ -223,6 +223,8 @@ menuAccordionToggleControls.forEach((control) => {
 //     canvasEl.removeEventListener('click', mouseClickHandler);
 // }
 
+const uiSelectionBtnClasses = 'btn skeleton text-left full btn-indicator';
+
 function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
     const { emitters, entities, entityPool } = stores;
     const { particleType, emitterType, emissionType, emissionPointType } = canvasConfig.currentEmission;
@@ -233,8 +235,9 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
     buildUISelectorList(
         particleThemeNames,
         particleUIListContainer,
+        'button',
         currentSelectionArr,
-        'js-selection-particle'
+        `js-selection-particle ${uiSelectionBtnClasses}`
     );
 
     const particleItems = getEls('.js-selection-particle');
@@ -253,8 +256,9 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
     buildUISelectorList(
         emitterThemeNames,
         emitterUIListContainer,
+        'button',
         currentSelectionArr,
-        'js-selection-emitter'
+        `js-selection-emitter ${uiSelectionBtnClasses}`
     );
 
     const emitterItems = getEls('.js-selection-emitter');
@@ -273,8 +277,9 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
     buildUISelectorList(
         emissionPointNames,
         emissionPointUIListContainer,
+        'button',
         currentSelectionArr,
-        'js-selection-emission-point'
+        `js-selection-emission-point ${uiSelectionBtnClasses}`
     );
 
     const emissionPointItems = getEls('.js-selection-emission-point');
@@ -304,8 +309,9 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
     buildUISelectorList(
         emissionTypeNames,
         emissionUIListContainer,
+        'button',
         currentSelectionArr,
-        'js-selection-emission-type'
+        `js-selection-emission-type ${uiSelectionBtnClasses}`
     );
 
     const emissionTypeItems = getEls('.js-selection-emission-type');

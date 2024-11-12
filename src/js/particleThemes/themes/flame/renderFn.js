@@ -7,10 +7,10 @@ import { drawFillEllipse } from '../../../drawingFunctions/canvasApiAugmentation
 function renderFn(x, y, r, colorData, ctx) {
     const p = this;
     // console.log(`p: ${p}`);
-    const stretchVal = mapValues(p.currLifeInv, 0, p.lifeSpan, 1, 5, true);
+    const stretchVal = mapValues(p.currLifeInv, 0, p.lifeSpan, 1, 4, true);
     const offsetMap = mapValues(p.currLifeInv, 0, p.lifeSpan, 0, 1, true);
     // console.log(`offsetMap: ${offsetMap}`);
-    // var newAngle = getAngleAndDistance(x, y, x + p.xVel, y + p.yVel);
+    // var newAngle = getAngleAndDistance(x, y, x * p.xVel, y * p.yVel);
     var newAngle = getAngleAndDistance(x, y, 0, y + p.yVel);
     // if (ctx.globalCompositeOperation !== 'lighter') {
     //     ctx.globalCompositeOperation = 'lighter';
@@ -29,11 +29,13 @@ function renderFn(x, y, r, colorData, ctx) {
     // // var offset = 0;
     const grd = ctx.createRadialGradient(0, 0 + offset, 0, 0, 0 + offset, r);
     // var grd = ctx.createRadialGradient(x, y, 0, x, y, r);
+
     grd.addColorStop(0, rgba(rd, gr, bl, 0.02 * alpha));
     grd.addColorStop(0.5, rgba(rd, gr, bl, 0.03 * alpha));
     grd.addColorStop(0.7, rgba(rd, gr, bl, 0.035 * alpha));
     grd.addColorStop(0.85, rgba(rd, gr, bl, 0.015 * alpha));
     grd.addColorStop(1, rgba(rd, gr, bl, 0));
+
     ctx.fillStyle = grd;
 
     ctx.rotate(newAngle.angle);

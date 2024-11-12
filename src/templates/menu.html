@@ -13,7 +13,7 @@
                     {{ controlPanelSectionHeader( 'Particle Theme' ) }}
                     <fieldset>
                         <div class="controls-wrapper">
-                            <ul id="particleThemeSelection" class="selection-list selection-list-small js-particle-selection-list"></ul>
+                            <div id="particleThemeSelection" class="btn-group selection-list selection-list-small js-particle-selection-list"></div>
                         </div>
                     </fieldset>
                 </div>
@@ -22,7 +22,9 @@
                 <div class="panel--content">
                     {{ controlPanelSectionHeader( 'Emitter Theme' ) }}
                     <fieldset>
-                        <ul id="emitterThemeSelection" class="selection-list selection-list-small js-emitter-selection-list"></ul>
+                        <div class="controls-wrapper">
+                            <div id="emitterThemeSelection" class="btn-group selection-list selection-list-small js-emitter-selection-list"></div>
+                        </div>
                     </fieldset>
                 </div>
             </section>
@@ -30,7 +32,9 @@
                 <div class="panel--content">
                     {{ controlPanelSectionHeader( 'Emitter Position' ) }}
                     <fieldset>
-                        <ul id="emissionPointSelection" class="selection-list js-emission-point-list"></ul>
+                        <div class="controls-wrapper">
+                            <div id="emissionPointSelection" class="btn-group selection-list selection-list-small js-emission-point-list"></div>
+                        </div>
                     </fieldset>
                 </div>
             </section>
@@ -38,7 +42,9 @@
                 <div class="panel--content">
                     {{ controlPanelSectionHeader( 'Emission Type' ) }}
                     <fieldset>
-                        <ul id="emissionTypeSelection" class="selection-list js-emission-type-list"></ul>
+                        <div class="controls-wrapper">
+                            <div id="emissionTypeSelection" class="btn-group selection-list selection-list-small js-emission-type-list"></div>
+                        </div>
                     </fieldset>
                 </div>
             </section>
@@ -57,9 +63,9 @@
 	<footer class="control--panel__footer">
         <div class="footer-content">
             <h3 class="footer-title">Animation Controls</h3>
-            <div class="btn-box btn-group">
-                <button id="animstart" class="js-anim-control js-anim-start button">Start</button>
-                <button id="animstop" class="js-anim-control js-anim-stop button">Stop</button>
+            <div class="btn-box btn-group auto-layout">
+                <button id="animstart" class="js-anim-control js-anim-start btn">Start</button>
+                <button id="animstop" class="js-anim-control js-anim-stop btn">Stop</button>
             </div>
         </div>
     </footer>

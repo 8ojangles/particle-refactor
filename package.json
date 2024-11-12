@@ -11,7 +11,9 @@
     "start": "node esbuild/serve.js",
     "watch": "node esbuild/serve.js --watch --servedir=dist",
     "analyze": "node esbuild/analyse.js",
-    "buildDocs": "documentation build src/js/** -f html --github -o dist/docs --config documentationConfig.yml"
+    "buildDocs": "documentation build src/js/** -f html --github -o dist/docs --config documentationConfig.yml",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "repository": {
     "type": "git",
@@ -32,6 +34,15 @@
   },
   "homepage": "https://github.com/8ojangles/project-template-esbuild#readme",
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.2",
+    "@storybook/addon-essentials": "^8.4.2",
+    "@storybook/addon-interactions": "^8.4.2",
+    "@storybook/addon-styling-webpack": "^1.0.1",
+    "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
+    "@storybook/blocks": "^8.4.2",
+    "@storybook/html": "^8.4.2",
+    "@storybook/html-webpack5": "^8.4.2",
+    "@storybook/test": "^8.4.2",
     "dbly-linked-list": "^0.3.4",
     "documentation": "^14.0.3",
     "esbuild": "^0.20.2",
@@ -40,6 +51,7 @@
     "esbuild-sass-plugin": "^3.2.0",
     "htmlnano": "^2.1.0",
     "object-path": "^0.11.4",
+    "storybook": "^8.4.2",
     "svgo": "^3.2.0"
   },
   "dependencies": {

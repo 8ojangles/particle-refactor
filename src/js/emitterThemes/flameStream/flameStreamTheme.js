@@ -44,7 +44,7 @@ const flameStreamTheme = {
 		impulse: {
 			pow: 0,
 			min: 1,
-			max: 2
+			max: 3
 		}
 	}
 };

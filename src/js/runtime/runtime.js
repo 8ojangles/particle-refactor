@@ -1,5 +1,5 @@
-import { displayDebugging } from '../debugUtils';
-import { updateEmitterStoreMembers } from '../emitterFunctions/emitterStore';
+import { displayDebugging } from '../debugUtils.js';
+import { updateEmitterStoreMembers } from '../emitterFunctions/emitterStore.js';
 import { environment, runtimeConfig, clearCanvas } from './environment.js';
 import { renderParticleArr } from '../particleFunctions/renderParticleArr.js';
 import { updateParticleArr } from '../particleFunctions/updateParticleArr.js';

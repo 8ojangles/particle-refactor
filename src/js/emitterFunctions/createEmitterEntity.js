@@ -15,6 +15,7 @@ import { particleRenderers } from './../particleThemes/themes.js';
 /**
  * @typedef {object} EmitterEntity
  * @property {string} name - The name of the emitter created at runtime
+ * @property {number} storeIndex - The index of the emitter in the emitter store
  * @property {object} emitterOpts - The emitter theme,
  * @property {object} emissionOpts - The emitter runtime configuration
  * @property {object} particleOpts - The attached particle configuration
@@ -47,12 +48,22 @@ import { particleRenderers } from './../particleThemes/themes.js';
  * @param {object} emitterTheme - The Emitter theme
  * @param {object} particleOpts - The Particle theme attached to this emitter
  * @param {array} entityStore - The main Particle array
+ * @param {number} storeIndex - The index of the emitter in the emitter store
  * @param {LinkedList} pool - The main entity pool
  * @param {object} canvasData - useful canvas data used in updating the emitter  during runtime
  * @param {object} [logger] - the global logger object for any telemetry
  * @returns {EmitterEntity} - The constructed Emitter Entity
  */
-function createEmitterEntity(emitterName, emitterTheme, particleOpts, entityStore, pool, canvasData, logger) {
+function createEmitterEntity(
+    emitterName,
+    emitterTheme,
+    particleOpts,
+    entityStore,
+    storeIndex,
+    pool,
+    canvasData,
+    logger
+) {
 
     const { emitter, emission } = emitterTheme;
     const { rate, repeater } = emission;
@@ -74,6 +85,7 @@ function createEmitterEntity(emitterName, emitterTheme, particleOpts, entityStor
         localClock: 0,
         localClockRunning: false,
         store: entityStore,
+        storeIndex: storeIndex,
         pool: pool,
         active: emitter.active,
         rateMin,

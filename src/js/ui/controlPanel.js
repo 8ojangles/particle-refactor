@@ -38,9 +38,6 @@ menuPageSelectControls.forEach((control) => {
 			el.classList.add( 'is-active' );
 			// @ts-ignore
 			newPage.classList.add( 'is-active', introClass );
-			// $currentPage.removeClass( pageAnimClassList ).addClass( outroClass );
-			// $thisButton.addClass( 'is-active' ).siblings().removeClass( 'is-active' );
-			// $newPage.addClass( 'is-active '+introClass );
 		}
 	});
 

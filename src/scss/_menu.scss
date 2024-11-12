@@ -6,6 +6,19 @@ $button-bg-selected: rgb(0, 37, 56);
 $section-title-size: 16px;
 $section-button-text-size: 14px;
 
+.selection-list {
+    padding: 0;
+    margin: 0;
+}
+
+.selection-list-small {
+    display: flex;
+    flex-wrap: wrap;
+    li {
+        width: 50%;
+    }
+}
+
 .menu {
     position: absolute;
     width: 20%;

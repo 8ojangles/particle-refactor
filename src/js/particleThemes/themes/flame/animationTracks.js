@@ -32,7 +32,7 @@ const animationTracks = [
             from: {profile: 0, color: 'r'},
             to: {profile: 1, color: 'r'}
         },
-        duration: 0.5,
+        duration: 0.2,
         easing: 'easeInQuart',
         linkedAnim: false
     },

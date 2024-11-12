@@ -17,12 +17,12 @@ function uiListToggleHandler(list, target, toggleClass) {
     }
 }
 
-function buildUISelectorList(list, el, initalSelection, aditionalClasses) {
+function buildUISelectorList(list, el, tag, initalSelection, additionalClasses) {
     for (const item in list) {
-        const newItem = document.createElement('li');
+        const newItem = document.createElement(tag);
         newItem.appendChild(document.createTextNode(item));
         newItem.setAttribute('id', item);
-        newItem.setAttribute('class', `${aditionalClasses} js-select-${item} ${initalSelection.includes(item) ? toggleClassStr : ''}`);
+        newItem.setAttribute('class', `${additionalClasses} js-select-${item} ${initalSelection.includes(item) ? toggleClassStr : ''}`);
         el.appendChild(newItem);
     }
 }
@@ -92,6 +92,7 @@ function mouseClickHandler(event) {
             emitterTheme,
             particleTheme,
             entityStore,
+            emitterStore.length,
             pool,
             {w: canvasConfig.w, h: canvasConfig.h},
             logger

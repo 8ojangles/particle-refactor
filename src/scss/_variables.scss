@@ -56,9 +56,10 @@ $large-spacing: $standard-spacing * 2;
 
 
 ///////////////////////// border-radii
+$br-sm: 0.1rem;
 $br-std: 0.25rem;
-
-
+$br-lg: 0.5rem;
+$br-full: 50%;
 
 ///////////////////////// animations
 $ticket-scale-inactive: 0.8;

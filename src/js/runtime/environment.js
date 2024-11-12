@@ -212,6 +212,7 @@ function initialiseEngine(emitterName, stores, animation, update, canvasConfig, 
         emitterTheme,
         particleTheme,
         entities,
+		emitters.length,
         entityPool,
 		{w: canvasConfig.w, h: canvasConfig.h},
 		logger

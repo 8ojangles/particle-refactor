@@ -1,22 +1,159 @@
+@use 'sass:math';
+
+$base-max-width: 96%;
+
+$quarters: math.div($base-max-width, 4);
+$thirds: math.div($base-max-width, 3);
+$halves: math.div($base-max-width, 2);
+
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
 .btn {
-	background-color: $blue-medium;
+	background-color: darken( $blue-medium, 30% );
 	border: 0;
-	font-size: 1.1rem;
+	font-size: 1rem;
 	padding: $standard-spacing;
 	color: $hex-white;
-	border-radius: $br-std;
+	border-radius: $br-sm;
+	outline: none;
+	margin-bottom: $standard-spacing;
+	&.full-width {
+		width: 100%;
+	}
+
+	&.skeleton {
+		border-radius: $br-std;
+		background-color: transparent;
+		border-left: 1px solid rgba(0,0,0,0.2);
+		border-right: 1px solid rgba(0,0,0,0.2);
+		box-shadow:
+				inset 0 1px 1px rgba(0,0,0,0.2),
+				inset 0 -1px 1px rgba(255,255,255,0.1);
+		// border-top: 1px solid rgba(0,0,0,0.2);
+		// border-bottom: 1px solid rgba(255,255,255,0.2);
+	
+		&:hover {
+			background: transparent;
+			color: $theme-blue;
+			cursor: pointer;
+		}
+	}
+
+	&.btn-indicator {
+		position: relative;
+		&::after {
+			width: 1rem;
+			height: 1rem;
+			content: '';
+			position: absolute;
+			top: 50%;
+			transform: translateY(-0.5rem);
+			right: $standard-spacing;
+			background-color: rgba(0,0,0,0.1);
+			border-radius: $br-full;
+			pointer-events: none;
+			box-shadow:
+				inset 0 1px 1px rgba(0,0,0,0.7),
+				inset 0 -1px 1px rgba(255,255,255,0.2);
+		}
+		&::before {
+			width: 0.5rem;
+			height: 0.5rem;
+			content: '';
+			position: absolute;
+			top: 50%;
+			transform: translateY(-0.25rem);
+			right: $standard-spacing + 0.25rem;
+			border-radius: $br-full;
+		}
+
+		&:hover {
+			&::before {
+				background-color: darken($theme-blue, 10%);
+				box-shadow:
+					inset 0 -1px 1px rgba(0,0,0,0.7),
+					inset 0 1px 1px rgba(255,255,255,0.5);
+			}
+		}
+		&.is-selected {
+			&::before {
+				background-color: $theme-orange;
+				box-shadow:
+					inset 0 -1px 1px rgba(0,0,0,0.7),
+					inset 0 2px 1px rgba(255,255,255,0.5);
+			}
+		}
+
+	}
 
 	&:hover {
 		cursor: pointer;
-		background-color: darken( $blue-medium, 15% );
+		background-color: darken( $blue-medium, 20% );
 	}
-
 	&[ disabled ] {
 		background-color: $grey-light;
 		pointer-events: none;
 	}
+	&:focus {
+		outline: none;
+	}
+	&.is-active {
+		cursor: default;
+		color: $theme-orange;
+		background-color: transparent;
+		// background-color: darken( $blue-medium, 40% );
+	}
+	&.is-selected {
+		cursor: default;
+		color: $theme-orange;
+		background-color: transparent;
+		// background-color: darken( $blue-medium, 40% );
+	}
 }
 
+.auto-spacing {
+	&.btn {
+		/* one item */
+		/* -or- &:only-child { */
+		&:first-child:nth-last-child(1) {
+			width: $base-max-width;
+		}
+		
+		/* two items */
+		&:first-child:nth-last-child(2),
+		&:first-child:nth-last-child(2) ~ button {
+			width: $halves;
+		}
+		
+		/* three items */
+		&:first-child:nth-last-child(3),
+		&:first-child:nth-last-child(3) ~ button {
+			width: $thirds;
+		}
+		
+		/* four items */
+		&:first-child:nth-last-child(4),
+		&:first-child:nth-last-child(4) ~ button {
+			width: $quarters;
+		}
+
+		/* five items */
+		&:first-child:nth-last-child(5),
+		&:first-child:nth-last-child(5) ~ button {
+			width: $halves;
+		}
+	}
+}
 
 .close-modal--button {
 	font-size: 3rem;
@@ -34,4 +171,17 @@
 		color: $hex-black;
 	}
 
+}
+
+.btn-group {
+	@include flex-vCentered-hSpaced-children();
+	margin-bottom: $standard-spacing;
+	flex-wrap: wrap;
+	.button,
+	.btn {
+		align-self: stretch;
+		&.full {
+			width: 100%;
+		}
+	}
 }
