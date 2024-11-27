@@ -35,7 +35,7 @@
 
 	<div id="warpStarImageCanvas"></div>
 	<div class="control--panel">
-    <header class="js-menu-header">
+    <header class="js-menu-header control--panel__header">
         <button data-page-select="page-presets" class="js-page-select page-elements is-active">Presets</button>
         <button data-page-select="page-emitter" class="js-page-select page-anims">Emitter</button>
         <button data-page-select="page-particle" class="js-page-select page-anims">Particle</button>
@@ -116,7 +116,26 @@
         </div>
 
         <div data-control-panel-page data-page="page-emitter" class="control--panel__page" data-page-order="2">
-            <p> testing page 2</p>
+            <section>
+                <h3>Emitters</h3>
+                <section class="control--panel__section">
+                    <div class="btn-box btn-group auto-layout">
+                        <button id="addEmitter" class="btn">Add Emitter</button>
+                        <button id="removeEmitter" class="btn">Remove Emitter</button>
+                    </div>
+                </section>
+                <h3>Current Emitters</h3>
+                <section class="control--panel__section">
+                    <div id="emitterList" class="js-current-emitters-list emitter-list btn-box btn-group">
+                    </div>
+                </section>
+                
+                <h3>Emitter Controls</h3>
+                <section class="control--panel__section">
+                    <div class="js-emitter-control-list control-list inactive"></div>
+                </section>
+                
+            </section>
         </div>
 
         <div data-control-panel-page data-page="page-particle" class="control--panel__page" data-page-order="3">

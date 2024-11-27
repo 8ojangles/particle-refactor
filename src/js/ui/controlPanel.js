@@ -1,4 +1,5 @@
 // import { overlayCfg } from './overlay.js';
+import { buildEmitterControls } from './uiFunctions.js';
 
 const getEls = document.querySelectorAll;
 
@@ -10,6 +11,7 @@ menuPageSelectControls.forEach((control) => {
 
 	control.addEventListener('click', (e) => {
 		e.preventDefault();
+		console.log('fn firing: ');
 		const el = e.target;
 		// @ts-ignore
 		const selectsPage = el.getAttribute( 'data-page-select' );
@@ -24,7 +26,7 @@ menuPageSelectControls.forEach((control) => {
 		const outroClass = isNewPageOrderGreater ? 'to-left' : 'to-right';
 
 		console.log('currentPageOrder: ', currentPageOrder, 'newPageOrder: ', newPageOrder, 'isNewPageOrderGreater: ', isNewPageOrderGreater, 'introClass: ', introClass, 'outroClass: ', outroClass);
-
+		console.log('selectsPage: ', selectsPage);
 
 		// @ts-ignore
 		if ( el.classList.contains( 'is-active') ) {
@@ -39,6 +41,14 @@ menuPageSelectControls.forEach((control) => {
 			// @ts-ignore
 			newPage.classList.add( 'is-active', introClass );
 		}
+		console.log('selectsPage: ', selectsPage);
+		if (selectsPage === 'page-emitter') {
+			console.log('buildEmitterControls is firing');
+			// @ts-ignore
+			buildEmitterControls(emitterStore);
+		}
+
+
 	});
 
 });

@@ -1,6 +1,8 @@
 // import { createEmitterEntity } from '../emitterFunctions/createEmitterEntity.js';
 // import { triggerEmitter } from '../emitterFunctions/triggerEmitter.js';
 import { particleThemeNames, emitterThemeNames, emissionPointNames, emissionTypeNames, presetThemeNames } from '../themeUtils.js';
+import { stores } from '../stores/stores.js';
+import { mapEmitterToControls } from './mapEmitterToControls.js';
 import {
     getEls,
     toggleClassStr,
@@ -10,7 +12,8 @@ import {
     registerMouseMove,
     unregisterMouseMove,
     registerMouseClickEmission,
-    unregisterMouseClickEmission
+    unregisterMouseClickEmission,
+    buildEmitterControls
 } from './uiFunctions.js';
 
 const menuPageSelectControls = getEls('.js-page-select');
@@ -71,6 +74,10 @@ menuPageSelectControls.forEach((control) => {
         // @ts-ignore
         el.classList.add('is-active');
 
+		if (selectsPage === 'page-emitter') {
+			// @ts-ignore
+			buildEmitterControls(stores.getEmitters());
+		}
 	});
 
 });
@@ -354,6 +361,52 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
                 return;
             }
             animation.state = false;
+        }
+    );
+
+    document.querySelector('.js-emitter-control-list').addEventListener(
+        'click', 
+        (e) => {
+            console.log('click');
+            console.log('e: ', e);
+            const { target } = e;
+            // @ts-ignore
+            if (target.classList.contains('js-control-help')) {
+                // @ts-ignore
+                const thisParent = target.closest('.control--panel__item-wrapper');
+                const expander = thisParent.querySelector('.expander');
+                const expanderActive = expander.classList.contains('is-active');
+                if (expanderActive) {
+                    expander.classList.remove('is-active');
+                } else {
+                    expander.classList.add('is-active');
+                }
+            }
+        
+        }
+    );
+    
+    document.querySelector('.js-current-emitters-list').addEventListener(
+        'click',
+        (e) => {
+            const { target } = e;
+            // @ts-ignore
+            const emitterName = target.id;
+
+            // @ts-ignore
+            if (target.classList.contains('is-active')) {
+                return;
+            } else {
+                // @ts-ignore
+                target.classList.add('is-active');
+
+                const thisEmitter = stores.getEmitterByName(emitterName);
+                console.log('thisEmitter: ', thisEmitter);
+                // map attributes to controls
+                mapEmitterToControls(thisEmitter);
+                document.querySelectorAll('.js-emitter-control-list')[0].classList.add('is-active');
+            }
+
         }
     );
 

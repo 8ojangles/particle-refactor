@@ -1,0 +1,56 @@
+.control--panel__header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $large-spacing * 2;
+    display: flex;
+    justify-content: center;
+
+    &:before {
+        content: ' ';
+        position: absolute;
+        width: $lip-shade-width;
+        height: $lip-shade-height;
+        left: $lip-shade-x;
+        bottom: 0;
+        opacity: 1;
+        border-radius: 0 0 50% 50%;
+        @include lip-shade-gradient();
+        transition: opacity 0.5s ease;
+    }
+
+    &:after {
+        content: ' ';
+        position: absolute;
+        width: $lip-glint-width;
+        height: $lip-glint-height;
+        left: $lip-glint-x;
+        bottom: -3px;
+        opacity: 0.2;
+        border-radius: 0 0 50% 50%;
+        @include lip-glint-gradient();
+        transition: opacity 0.5s ease;
+    }
+
+    button {
+        width: 50%;
+        padding: 0;
+        margin: 0;
+        // background-color: darken( $blue-medium, 50% );
+        background-color: transparent;
+        border: none;
+        color: $blue-medium;
+        cursor: pointer;
+        &:focus {
+            outline: none;
+        }
+        outline: none;
+        &.is-active {
+            cursor: default;
+            color: $theme-orange;
+            background-color: transparent;
+            // background-color: darken( $blue-medium, 40% );
+        }
+    }
+}

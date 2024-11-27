@@ -114,6 +114,7 @@ $halves: math.div($base-max-width, 2);
 		// background-color: darken( $blue-medium, 40% );
 	}
 	&.is-selected {
+		pointer-events: none;
 		cursor: default;
 		color: $theme-orange;
 		background-color: transparent;
@@ -175,7 +176,7 @@ $halves: math.div($base-max-width, 2);
 
 .btn-group {
 	@include flex-vCentered-hSpaced-children();
-	margin-bottom: $standard-spacing;
+	// margin-bottom: $standard-spacing;
 	flex-wrap: wrap;
 	.button,
 	.btn {

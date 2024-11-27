@@ -27,6 +27,18 @@ const stores = {
     clearRenderStore: function() {
         // @ts-ignore
         this.renderEntities = [];
+    },
+    getEmitters: function() {
+        // @ts-ignore
+        return this.emitters;
+    },
+    getEmitterByName: function(name) {
+        // @ts-ignore
+        return this.emitters.find((emitter) => emitter.name === name);
+    },
+    getEmitterByIndex: function(index) {
+        // @ts-ignore
+        return this.emitters[index];
     }
 }
 

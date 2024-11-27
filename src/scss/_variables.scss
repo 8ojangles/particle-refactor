@@ -102,6 +102,18 @@ $chair-border-radius: $br-std;
 
 $cp-bg-color: $theme-blue-dark;
 
+// page
+$page-translate-x: 100%;
+
+$base-max-width: 96%;
+
+$quarters: math.div($base-max-width, 4);
+$thirds: math.div($base-max-width, 3);
+$halves: math.div($base-max-width, 2);
+
+// expander
+$expander-transition-speed: 0.25s;
+
 // item
 $control-panel-item-header-color: $blue-medium;
 $control-panel-item-header-color-active: $theme-orange;

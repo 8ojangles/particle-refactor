@@ -1,0 +1,118 @@
+@use 'sass:math';
+
+.control--panel__item-wrapper {
+    margin-bottom: $standard-spacing * 2;
+}
+
+.control--panel__item {
+    padding: math.div($standard-spacing, 2) 0 0 0;
+    @include flex-vCentered-hSpaced-children();
+    margin-bottom: 1rem;
+    input {
+        margin-top: $standard-spacing;
+        margin-bottom: math.div($standard-spacing, 1.5);
+        width: 100%;
+    }
+
+    + .control--panel__item {
+        padding-top: $small-spacing;
+    }
+
+}
+
+.control--panel__item-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: $blue-medium;
+}
+
+.control--panel__item-labels {
+    width: 100%;
+    @include flex-vCentered-hSpaced-children();
+
+    font-size: 80%;
+    font-weight: 200;
+    letter-spacing: 0.05rem;
+    color: lighten( $blue-medium, 20% );
+}
+
+.control--panel__item-controls {
+    width: 75%;
+    > label {
+        font-size: 90%;
+        padding-bottom: $standard-spacing;
+        color: lighten( $blue-medium, 20% );
+    }
+
+}
+
+.control--panel__item-output {
+    position: relative;
+    bottom: math.div($standard-spacing, 1.5);
+    width: 20%;
+    text-align: right;
+    align-self: flex-end;
+    color: $blue-medium;
+    padding: math.div($standard-spacing, 2);
+    background-color: darken( $blue-medium, 50% );
+}
+
+.control--panel__item-help-icon {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.15rem;
+    margin-left: $small-spacing;
+    cursor: pointer;
+    @include flex-vCentered-hSpaced-children();
+    color: white;
+    background-color: darken($blue-medium, 50%);
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    border: 1px solid $blue-medium;
+
+    &:hover {
+        background-color: darken($blue-medium, 60%);
+    }
+}
+
+.control--panel__item-help-wrapper {
+    p {
+        width: 100%;
+        letter-spacing: 1px;
+        line-height: 1.25;
+    }
+}
+.expander {
+    display: grid;
+    overflow: hidden;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.2s;
+    
+    div {
+        overflow: hidden;
+    }
+
+    p {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    &.is-active {
+        grid-template-rows: 1fr;
+        transition: grid-template-rows 0.2s;
+    }
+}
+
+.control-list {
+    opacity: 0.25;
+    pointer-events: none;
+
+    &.is-active {
+        opacity: 1;
+        pointer-events: initial;
+    }
+}

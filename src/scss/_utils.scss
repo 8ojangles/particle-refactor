@@ -84,3 +84,8 @@ $dark-gradient-init-opacity: 0.4;
 	margin-left: auto;
 	margin-right: auto;
 }
+
+@mixin full-width-height() {
+	width: 100%;
+	height: 100%;
+}

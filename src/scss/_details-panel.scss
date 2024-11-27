@@ -36,9 +36,7 @@
 }
 
 .details--panel__cta {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	@include flex-vCentered-hSpaced-children();
 	border-top: none;
 	padding-top: $standard-spacing;
 

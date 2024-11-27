@@ -1,7 +1,8 @@
 import { createEmitterEntity } from "../emitterFunctions/createEmitterEntity.js";
 import { triggerEmitter } from "../emitterFunctions/triggerEmitter.js";
 import { presetThemeNames, particleThemeNames, emitterThemeNames, emissionTypeNames, emissionPointNames } from "../themeUtils.js";
-
+import { createRangeSlider } from "./createRangeSlider.js";
+import { emitterControlsConfig } from "./emitterControlsConfig.js";
 const toggleClassStr = 'is-selected';
 
 const getEls = document.querySelectorAll.bind(document);
@@ -26,6 +27,47 @@ function buildUISelectorList(list, el, tag, initalSelection, additionalClasses) 
         el.appendChild(newItem);
     }
 }
+// id, title, min, max, step, multiplier, controller, flipped, label1, label2, initVal
+function buildEmitterControls(emitterStore) {
+
+    const currentEmitterListEl = getEls('.js-current-emitters-list')[0];
+    const currentEmitterList = currentEmitterListEl.children;
+    const currentEmitters = emitterStore;
+    console.log(currentEmitters);
+    console.log(currentEmitterList);
+
+    currentEmitters.forEach((emitter) => {
+
+        if (currentEmitterList.length === 0) {
+            const newEmitter = document.createElement('button');
+            newEmitter.setAttribute('type', 'button');
+            newEmitter.appendChild(document.createTextNode(emitter.name));
+            newEmitter.setAttribute('id', emitter.name);
+            newEmitter.setAttribute('class', `js-emitter-${emitter.name} btn button`);
+            currentEmitterListEl.appendChild(newEmitter);
+            return;
+        }
+
+        if (currentEmitterList.length > 0) {
+            for (let i = 0; i < currentEmitterList.length; i++) {
+                if (currentEmitterList[i].id === emitter.name) {
+                    return;
+                }
+            }
+        }
+    });
+
+
+    const controlsEl = getEls('.js-emitter-control-list')[0];
+
+    if (controlsEl.children.length > 0) {
+        return;
+    }
+    emitterControlsConfig.forEach((control) => {
+        createRangeSlider(controlsEl, { ...control });
+    });
+}
+
 
 function setParticlePreset(presetName, canvasConfig) {
     switch(presetName) {
@@ -129,6 +171,7 @@ export {
     buttonSelectedToggle,
     uiListToggleHandler,
     buildUISelectorList,
+    buildEmitterControls,
     setParticlePreset,
     trackMouse,
     registerMouseMove,

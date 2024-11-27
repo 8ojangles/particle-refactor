@@ -1,0 +1,39 @@
+@use 'sass:math';
+
+$page-translate-x: 100%;
+
+.control--panel__page-wrapper {
+    position: relative;
+    @include full-width-height();
+    margin-top: $large-spacing;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+.control--panel__page {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    padding: 0 $standard-spacing $large-spacing*10 $standard-spacing;
+    pointer-events: none;
+    // opacity: 0;
+    transform: translateX( $page-translate-x );
+    transition: all 0.2s ease;
+
+    &.is-active {
+        position: relative;
+        pointer-events: initial;
+        transform: translateX( 0 );
+        // opacity: 1;
+        transition: all 0.2s ease;
+    }
+
+    &.to-left { transform: translateX( -$page-translate-x ); }
+    &.to-right { transform: translateX( $page-translate-x ); }
+    &.from-left { transform: translateX( 0 ); }
+    &.from-right { transform: translateX( 0 ); }
+}

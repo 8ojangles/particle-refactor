@@ -1,4 +1,4 @@
-import '../src/scss/main.scss';
+import '../dist/scss/main.css';
 
 /** @type { import('@storybook/html').Preview } */
 const preview = {
