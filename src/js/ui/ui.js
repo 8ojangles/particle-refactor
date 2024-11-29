@@ -15,6 +15,7 @@ import {
     unregisterMouseClickEmission,
     buildEmitterControls
 } from './uiFunctions.js';
+import { set } from 'lodash-es';
 
 const menuPageSelectControls = getEls('.js-page-select');
 
@@ -409,6 +410,35 @@ function initialiseUI(stores, animation, update, canvas, canvasConfig, logger) {
 
         }
     );
+
+    document.querySelector('.js-emitter-control-list').addEventListener("input", (e) => {
+        const { target } = e;
+        // @ts-ignore
+        const { value, id } = target;
+        // @ts-ignore
+        const output = target.closest('.control--panel__item').querySelector('.control--panel__item-output output');
+        output.value = value;
+        const currentEmitterName = document.querySelector('.js-current-emitters-list .is-active').id;
+        console.log('currentEmitterName: ', currentEmitterName);
+        // @ts-ignore
+        const emitter = stores.getEmitterByName(currentEmitterName);
+        // @ts-ignore
+        console.log('emitter: ', emitter);
+        // @ts-ignore
+        const thisPath = target.getAttribute('data-control-attribute-path');
+        console.log('thisPath: ', thisPath);
+        // @ts-ignore
+        const thisParam = target.getAttribute('data-control-attribute-value');
+        console.log('thisParam: ', thisParam);
+
+        if (thisPath !== null && thisPath !== 'null' && thisPath !== '') {
+            console.log('Path NOT null and not empty');
+            set(emitter, `${thisPath}.${thisParam}` ,parseInt(value, 10));
+        } else {
+            console.log('Path IS null and not empty');
+            set(emitter, `${thisParam}` ,parseInt(value, 10));
+        }
+    });
 
     // check defaults or onLoad presets (registering mouse events)
     if (emissionType === emissionTypeNames.mouseClick) {

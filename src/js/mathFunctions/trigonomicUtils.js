@@ -134,11 +134,18 @@ function findNewPoint(x, y, angle, distance) {
  * @param {number} impulse - the speed along the vector.
  * @returns {VelocityVector}
 */
+// function calculateVelocities(x, y, angle, impulse) {
+// 	var a2 = Math.atan2(Math.sin(angle) * impulse + y - y, Math.cos(angle) * impulse + x - x);
+// 	return {
+// 		xVel: Math.cos(a2) * impulse,
+// 		yVel: Math.sin(a2) * impulse
+// 	};
+// }
 function calculateVelocities(x, y, angle, impulse) {
-	var a2 = Math.atan2(Math.sin(angle) * impulse + y - y, Math.cos(angle) * impulse + x - x);
+	// var a2 = Math.atan2(Math.sin(angle) * impulse + y - y, Math.cos(angle) * impulse + x - x);
 	return {
-		xVel: Math.cos(a2) * impulse,
-		yVel: Math.sin(a2) * impulse
+		xVel: Math.cos(angle) * impulse,
+		yVel: Math.sin(angle) * impulse
 	};
 }
 

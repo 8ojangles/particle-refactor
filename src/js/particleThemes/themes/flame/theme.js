@@ -10,7 +10,7 @@ const flameTheme = {
     contextBlendingMode: 'lighter',
     active: 1,
     life: { min: 20, max: 35 },
-    angle: { min: 1.3, max: 1.7 },
+    angle: { min: 1.45, max: 1.55 },
     mag: { min: 5, max: 10 },
     velAcceleration: { min: 1.01, max: 1.02 },
     // velAcceleration: { min: 1, max: 1 },

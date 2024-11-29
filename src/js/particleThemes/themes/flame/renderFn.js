@@ -7,7 +7,7 @@ import { drawFillEllipse } from '../../../drawingFunctions/canvasApiAugmentation
 function renderFn(x, y, r, colorData, ctx) {
     const p = this;
     // console.log(`p: ${p}`);
-    const stretchVal = mapValues(p.currLifeInv, 0, p.lifeSpan, 1, 4, true);
+    const stretchVal = mapValues(p.currLifeInv, 0, p.lifeSpan, 1, 3, true);
     const offsetMap = mapValues(p.currLifeInv, 0, p.lifeSpan, 0, 1, true);
     // console.log(`offsetMap: ${offsetMap}`);
     // var newAngle = getAngleAndDistance(x, y, x * p.xVel, y * p.yVel);

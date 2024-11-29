@@ -9,6 +9,7 @@
     @include flex-vCentered-hSpaced-children();
     margin-bottom: 1rem;
     input {
+        position: relative;
         margin-top: $standard-spacing;
         margin-bottom: math.div($standard-spacing, 1.5);
         width: 100%;
@@ -38,11 +39,40 @@
 }
 
 .control--panel__item-controls {
+    position: relative;
     width: 75%;
     > label {
         font-size: 90%;
         padding-bottom: $standard-spacing;
         color: lighten( $blue-medium, 20% );
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: -1;
+        width: 50%;
+        height: 1.5rem;
+        top: -0.65rem;
+        border-left: 1px solid $blue-medium;
+        border-right: 1px solid $blue-medium;
+        // background-color: $blue-medium;
+        margin-top: $standard-spacing;
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 50%;
+        z-index: -1;
+        right: 0;
+        height: 1.5rem;
+        bottom: 1rem;
+        border-right: 1px solid $blue-medium;
+        // background-color: $blue-medium;
+        margin-top: $standard-spacing;
     }
 
 }

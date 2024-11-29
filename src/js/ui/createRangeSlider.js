@@ -7,7 +7,7 @@ function setMultiElAttributes(el, attributes) {
 
 function createRangeSlider(parentEl, options) {
 
-    const { id, title, min, max, step, multiplier, controller, flipped, label1, label2, initVal } = options;
+    const { id, title, min, max, step, multiplier, controller, flipped, label1, label2, initVal, entityValuePath, entityValue } = options;
 
     const inputAttributes = {
         'type': 'range',
@@ -19,7 +19,9 @@ function createRangeSlider(parentEl, options) {
         'step': step,
         'data-modifier': id,
         'data-value-multiplier': multiplier ? multiplier : 1,
-        'data-control': controller
+        'data-control': controller,
+        'data-control-attribute-path': entityValuePath || null,
+        'data-control-attribute-value': entityValue
     };
 
     const newRangeSlider = document.createElement('input');
@@ -42,11 +44,11 @@ function createRangeSlider(parentEl, options) {
 
     const newControlItemLabel1 = document.createElement('label');
     newControlItemLabel1.setAttribute('for', id);
-    newControlItemLabel1.innerHTML = label1;
+    newControlItemLabel1.innerHTML = min;
 
     const newControlItemLabel2 = document.createElement('label');
     newControlItemLabel2.setAttribute('for', id);
-    newControlItemLabel2.innerHTML = label2;
+    newControlItemLabel2.innerHTML = max;
 
     newControlItemLabels.appendChild(newControlItemLabel1);
     newControlItemLabels.appendChild(newControlItemLabel2);

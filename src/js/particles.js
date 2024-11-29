@@ -17,7 +17,7 @@ const { main: mainCanvas, blit: blitCanvas } = canvases;
 const stores = mainStore;
 
 // setup for initial particle examples
-setParticlePreset(presetThemeNames.flames, canvasConfig);
+setParticlePreset(presetThemeNames.warpedstars, canvasConfig);
 logger.setDisplay(true);
 
 // runtime
