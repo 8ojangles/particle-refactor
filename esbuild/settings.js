@@ -10,10 +10,10 @@ export function createBuildSettings(options) {
     return {
         logLevel: "info",
         entryPoints: [
-            entryPoints.js,
-            entryPoints.scss,
-            entryPoints.html,
-            entryPoints.pageData
+            ...entryPoints.js,
+            ...entryPoints.scss,
+            ...entryPoints.html,
+            ...entryPoints.pageData
         ],
         outdir: './dist/',
         bundle: true,
@@ -45,7 +45,8 @@ export function createBuildSettings(options) {
             }),
             jsonbakePlugin({
                 files: [{
-                    src: './src/page-data/page-data.json', dest: './src/site-content-compiled.json'
+                    src: './src/page-data/page-data.json',
+                    dest: './src/site-content-compiled.json'
                 }]
             }),
             nunjucksPlugin({

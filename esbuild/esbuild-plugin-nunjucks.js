@@ -1,6 +1,14 @@
 import nunjucks from 'nunjucks';
-import path from 'node:path';
 import fs from 'node:fs';
+
+
+const reportNunjucksWriteFileOp = (err, file) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(`${file} written to Dist folder`);
+    }
+}
 
 const nunjucksPlugin = (options) => ({
     name: 'nunjucks',
@@ -37,36 +45,20 @@ const nunjucksPlugin = (options) => ({
             const pageFileArr = fs.readdirSync(pageDir, {withFileTypes: true})
                 .filter(item => !item.isDirectory() && (item.name.includes('.html') || item.name.includes('.njk')))
                 .map(item => item.name);
-            // const loadedPath = args.path;
             const dataFileExists = fs.existsSync(dataFile);
+            const data = await fs.promises.readFile(dataFile, "utf8");
             let contents;
-            let data;
-            data = await fs.promises.readFile(dataFile, "utf8");
-            if (dataFileExists) {
-                
-                if (pageFileArr.length > 0) {
+
+            if (pageFileArr.length > 0) {
+                if (dataFileExists) {
                     pageFileArr.forEach(file => {
                         contents = env.render(file, JSON.parse(data));
-                        fs.writeFile(`${outputDir}/${file}`, contents, err => {
-                            if (err) {
-                                console.error('fs.writeFile err: ', err);
-                            } else {
-                                console.log(`${file} written to Dist folder`);
-                            }
-                        });
-                    })
-                }
-            } else {
-                if (pageFileArr.length > 0) {
+                        fs.writeFile(`${outputDir}/${file}`, contents, err => reportNunjucksWriteFileOp(err, file));
+                    });
+                } else {
                     pageFileArr.forEach(file => {
                         contents = nunjucks.render(`${file}`);
-                        fs.writeFile(`${outputDir}/${file}`, contents, err => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                console.log(`${file} written to Dist folder`);
-                            }
-                        });
+                        fs.writeFile(`${outputDir}/${file}`, contents, err => reportNunjucksWriteFileOp(err, file));
                     })
                 }
             }

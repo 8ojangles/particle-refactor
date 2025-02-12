@@ -1,6 +1,6 @@
 import { radialDistribution, calculateVelocities } from '../mathFunctions/trigonomicUtils.js';
 import { randomInteger, random as rand, mapValues, getRandomArbitrary  } from'../mathFunctions/mathUtils.js';
-import { createAnimationTracks } from './createAnimationTracks';
+import { createAnimationTracks } from './createAnimationTracks.js';
 import { themes } from './../particleThemes/themes.js';
 
 const PI = Math.PI;
