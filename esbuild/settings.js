@@ -60,10 +60,16 @@ export function createBuildSettings(options) {
                 // this is equal to process.cwd(), which means we use cwd path as base path to resolve `to` path
                 // if not specified, this plugin uses ESBuild.build outdir/outfile options as base path.
                 resolveFrom: 'cwd',
-                assets: {
-                  from: ['./src/assets/**/*'],
-                  to: ['./dist/assets'],
-                },
+                assets: [
+                    {
+                        from: ['./src/assets/**/*'],
+                        to: ['./dist/assets'],
+                    },
+                    {
+                        from: ['./docs/**/*'],
+                        to: ['./dist/docs'],
+                    }
+                ],
                 watch: true,
             })
         ],

@@ -1,11 +1,13 @@
 @use 'sass:math';
+@use '_variables' as v;
+@use '_utils' as u;
 
 $page-translate-x: 100%;
 
 .control--panel__page-wrapper {
     position: relative;
-    @include full-width-height();
-    margin-top: $large-spacing;
+    @include u.full-width-height();
+    margin-top: v.$large-spacing;
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
@@ -18,7 +20,7 @@ $page-translate-x: 100%;
     position: absolute;
     width: 100%;
     top: 0;
-    padding: 0 $standard-spacing $large-spacing*10 $standard-spacing;
+    padding: 0 v.$standard-spacing v.$large-spacing*10 v.$standard-spacing;
     pointer-events: none;
     // opacity: 0;
     transform: translateX( $page-translate-x );

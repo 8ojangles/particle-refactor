@@ -51,8 +51,9 @@ const nunjucksPlugin = (options) => ({
 
             if (pageFileArr.length > 0) {
                 if (dataFileExists) {
+                    const compiledData = JSON.parse(data);
                     pageFileArr.forEach(file => {
-                        contents = env.render(file, JSON.parse(data));
+                        contents = env.render(file, compiledData);
                         fs.writeFile(`${outputDir}/${file}`, contents, err => reportNunjucksWriteFileOp(err, file));
                     });
                 } else {

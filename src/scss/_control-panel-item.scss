@@ -1,22 +1,24 @@
 @use 'sass:math';
+@use '_variables' as v;
+@use '_utils' as u;
 
 .control--panel__item-wrapper {
-    margin-bottom: $standard-spacing * 2;
+    margin-bottom: v.$standard-spacing * 2;
 }
 
 .control--panel__item {
-    padding: math.div($standard-spacing, 2) 0 0 0;
-    @include flex-vCentered-hSpaced-children();
+    padding: math.div(v.$standard-spacing, 2) 0 0 0;
+    @include u.flex-vCentered-hSpaced-children();
     margin-bottom: 1rem;
     input {
         position: relative;
-        margin-top: $standard-spacing;
-        margin-bottom: math.div($standard-spacing, 1.5);
+        margin-top: v.$standard-spacing;
+        margin-bottom: math.div(v.$standard-spacing, 1.5);
         width: 100%;
     }
 
     + .control--panel__item {
-        padding-top: $small-spacing;
+        padding-top: v.$small-spacing;
     }
 
 }
@@ -25,17 +27,17 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    color: $blue-medium;
+    color: v.$blue-medium;
 }
 
 .control--panel__item-labels {
     width: 100%;
-    @include flex-vCentered-hSpaced-children();
+    @include u.flex-vCentered-hSpaced-children();
 
     font-size: 80%;
     font-weight: 200;
     letter-spacing: 0.05rem;
-    color: lighten( $blue-medium, 20% );
+    color: lighten( v.$blue-medium, 20% );
 }
 
 .control--panel__item-controls {
@@ -43,8 +45,8 @@
     width: 75%;
     > label {
         font-size: 90%;
-        padding-bottom: $standard-spacing;
-        color: lighten( $blue-medium, 20% );
+        padding-bottom: v.$standard-spacing;
+        color: lighten( v.$blue-medium, 20% );
     }
 
     &::before {
@@ -55,10 +57,10 @@
         width: 50%;
         height: 1.5rem;
         top: -0.65rem;
-        border-left: 1px solid $blue-medium;
-        border-right: 1px solid $blue-medium;
-        // background-color: $blue-medium;
-        margin-top: $standard-spacing;
+        border-left: 1px solid v.$blue-medium;
+        border-right: 1px solid v.$blue-medium;
+        // background-color: v.$blue-medium;
+        margin-top: v.$standard-spacing;
     }
 
     &::after {
@@ -70,22 +72,22 @@
         right: 0;
         height: 1.5rem;
         bottom: 1rem;
-        border-right: 1px solid $blue-medium;
-        // background-color: $blue-medium;
-        margin-top: $standard-spacing;
+        border-right: 1px solid v.$blue-medium;
+        // background-color: v.$blue-medium;
+        margin-top: v.$standard-spacing;
     }
 
 }
 
 .control--panel__item-output {
     position: relative;
-    bottom: math.div($standard-spacing, 1.5);
+    bottom: math.div(v.$standard-spacing, 1.5);
     width: 20%;
     text-align: right;
     align-self: flex-end;
-    color: $blue-medium;
-    padding: math.div($standard-spacing, 2);
-    background-color: darken( $blue-medium, 50% );
+    color: v.$blue-medium;
+    padding: math.div(v.$standard-spacing, 2);
+    background-color: darken( v.$blue-medium, 50% );
 }
 
 .control--panel__item-help-icon {
@@ -93,17 +95,17 @@
     width: 1.5rem;
     height: 1.5rem;
     font-size: 1.15rem;
-    margin-left: $small-spacing;
+    margin-left: v.$small-spacing;
     cursor: pointer;
-    @include flex-vCentered-hSpaced-children();
+    @include u.flex-vCentered-hSpaced-children();
     color: white;
-    background-color: darken($blue-medium, 50%);
+    background-color: darken(v.$blue-medium, 50%);
     border-radius: 50%;
     transition: background-color 0.2s;
-    border: 1px solid $blue-medium;
+    border: 1px solid v.$blue-medium;
 
     &:hover {
-        background-color: darken($blue-medium, 60%);
+        background-color: darken(v.$blue-medium, 60%);
     }
 }
 

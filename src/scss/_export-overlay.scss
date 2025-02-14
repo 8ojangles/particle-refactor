@@ -1,8 +1,11 @@
+@use '_variables' as v;
+@use '_utils' as u;
+
 .export-overlay--container {
 	position: absolute;
 	z-index: 200;
 
-	@include flex-centered-children();
+	@include u.flex-centered-children();
 
 	width: 100vw;
 	height: 100vh;
@@ -25,12 +28,12 @@
 	position: relative;
 	width: 50%;
 	height: auto;
-	padding: $standard-spacing;
-	background: darken( $blue-medium, 40% );
+	padding: v.$standard-spacing;
+	background: darken( v.$blue-medium, 40% );
 	box-shadow: 0 4px 20px rgba( 0, 0, 0, 0.6 );
 
 	p {
-		color: lighten( $blue-medium, 10% );
+		color: lighten( v.$blue-medium, 10% );
 	}
 
 	button {
@@ -42,20 +45,20 @@
 
 .close-export-overlay {
 	position: absolute;
-	right: $standard-spacing;
-	top: $standard-spacing;
+	right: v.$standard-spacing;
+	top: v.$standard-spacing;
 	font-size: 2rem;
-	color: $blue-medium;
+	color: v.$blue-medium;
 
 	&:hover {
-		color: lighten( $blue-medium, 30% );
+		color: lighten( v.$blue-medium, 30% );
 	}
 }
 
 .export-overlay--output {
 	background-color: #dddddd;
 	color: #333333;
-	padding: $large-spacing;
+	padding: v.$large-spacing;
 	overflow: scroll;
 }
 

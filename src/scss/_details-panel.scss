@@ -1,12 +1,15 @@
+@use '_variables' as v;
+@use '_utils' as u;
+
 .details--panel {
 	position: absolute;
-	right: $standard-spacing;
+	right: v.$standard-spacing;
 	width: 20%;
 	top: 50%;
 	transform: translateY( -50% );
-	background-color: $hex-black;
-	color: $hex-white;
-	padding: $standard-spacing;
+	background-color: v.$hex-black;
+	color: v.$hex-white;
+	padding: v.$standard-spacing;
 	box-shadow: 0 5px 20px rgba( 0,0,0, 0.5);
 	opacity: 0;
 	transition: all 2s ease-out;
@@ -32,13 +35,13 @@
 
 .details--panel__info {
 	border-bottom: none;
-	padding-bottom: $standard-spacing;
+	padding-bottom: v.$standard-spacing;
 }
 
 .details--panel__cta {
-	@include flex-vCentered-hSpaced-children();
+	@include u.flex-vCentered-hSpaced-children();
 	border-top: none;
-	padding-top: $standard-spacing;
+	padding-top: v.$standard-spacing;
 
 	.info--row__btn {
 		flex-shrink: 0;

@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use '_variables' as v;
+@use '_utils' as u;
 
 $base-max-width: 96%;
 
@@ -19,20 +21,20 @@ $halves: math.div($base-max-width, 2);
 }
 
 .btn {
-	background-color: darken( $blue-medium, 30% );
+	background-color: darken( v.$blue-medium, 30% );
 	border: 0;
 	font-size: 1rem;
-	padding: $standard-spacing;
-	color: $hex-white;
-	border-radius: $br-sm;
+	padding: v.$standard-spacing;
+	color: v.$hex-white;
+	border-radius: v.$br-sm;
 	outline: none;
-	margin-bottom: $standard-spacing;
+	margin-bottom: v.$standard-spacing;
 	&.full-width {
 		width: 100%;
 	}
 
 	&.skeleton {
-		border-radius: $br-std;
+		border-radius: v.$br-std;
 		background-color: transparent;
 		border-left: 1px solid rgba(0,0,0,0.2);
 		border-right: 1px solid rgba(0,0,0,0.2);
@@ -44,7 +46,7 @@ $halves: math.div($base-max-width, 2);
 	
 		&:hover {
 			background: transparent;
-			color: $theme-blue;
+			color: v.$theme-blue;
 			cursor: pointer;
 		}
 	}
@@ -58,9 +60,9 @@ $halves: math.div($base-max-width, 2);
 			position: absolute;
 			top: 50%;
 			transform: translateY(-0.5rem);
-			right: $standard-spacing;
+			right: v.$standard-spacing;
 			background-color: rgba(0,0,0,0.1);
-			border-radius: $br-full;
+			border-radius: v.$br-full;
 			pointer-events: none;
 			box-shadow:
 				inset 0 1px 1px rgba(0,0,0,0.7),
@@ -73,13 +75,13 @@ $halves: math.div($base-max-width, 2);
 			position: absolute;
 			top: 50%;
 			transform: translateY(-0.25rem);
-			right: $standard-spacing + 0.25rem;
-			border-radius: $br-full;
+			right: v.$standard-spacing + 0.25rem;
+			border-radius: v.$br-full;
 		}
 
 		&:hover {
 			&::before {
-				background-color: darken($theme-blue, 10%);
+				background-color: darken(v.$theme-blue, 10%);
 				box-shadow:
 					inset 0 -1px 1px rgba(0,0,0,0.7),
 					inset 0 1px 1px rgba(255,255,255,0.5);
@@ -87,7 +89,7 @@ $halves: math.div($base-max-width, 2);
 		}
 		&.is-selected {
 			&::before {
-				background-color: $theme-orange;
+				background-color: v.$theme-orange;
 				box-shadow:
 					inset 0 -1px 1px rgba(0,0,0,0.7),
 					inset 0 2px 1px rgba(255,255,255,0.5);
@@ -98,10 +100,10 @@ $halves: math.div($base-max-width, 2);
 
 	&:hover {
 		cursor: pointer;
-		background-color: darken( $blue-medium, 20% );
+		background-color: darken( v.$blue-medium, 20% );
 	}
 	&[ disabled ] {
-		background-color: $grey-light;
+		background-color: v.$grey-light;
 		pointer-events: none;
 	}
 	&:focus {
@@ -109,14 +111,14 @@ $halves: math.div($base-max-width, 2);
 	}
 	&.is-active {
 		cursor: default;
-		color: $theme-orange;
+		color: v.$theme-orange;
 		background-color: transparent;
 		// background-color: darken( $blue-medium, 40% );
 	}
 	&.is-selected {
 		pointer-events: none;
 		cursor: default;
-		color: $theme-orange;
+		color: v.$theme-orange;
 		background-color: transparent;
 		// background-color: darken( $blue-medium, 40% );
 	}
@@ -127,55 +129,55 @@ $halves: math.div($base-max-width, 2);
 		/* one item */
 		/* -or- &:only-child { */
 		&:first-child:nth-last-child(1) {
-			width: $base-max-width;
+			width: v.$base-max-width;
 		}
 		
 		/* two items */
 		&:first-child:nth-last-child(2),
 		&:first-child:nth-last-child(2) ~ button {
-			width: $halves;
+			width: v.$halves;
 		}
 		
 		/* three items */
 		&:first-child:nth-last-child(3),
 		&:first-child:nth-last-child(3) ~ button {
-			width: $thirds;
+			width: v.$thirds;
 		}
 		
 		/* four items */
 		&:first-child:nth-last-child(4),
 		&:first-child:nth-last-child(4) ~ button {
-			width: $quarters;
+			width: v.$quarters;
 		}
 
 		/* five items */
 		&:first-child:nth-last-child(5),
 		&:first-child:nth-last-child(5) ~ button {
-			width: $halves;
+			width: v.$halves;
 		}
 	}
 }
 
 .close-modal--button {
 	font-size: 3rem;
-	line-height: $large-spacing;
+	line-height: v.$large-spacing;
 	position: absolute;
-	top: $standard-spacing;
-	right: $standard-spacing;
+	top: v.$standard-spacing;
+	right: v.$standard-spacing;
 	padding: 0;
-	color: $grey-medium;
+	color: v.$grey-medium;
 	border: none;
 	background: transparent;
 
 	&:hover {
 		cursor: pointer;
-		color: $hex-black;
+		color: v.$hex-black;
 	}
 
 }
 
 .btn-group {
-	@include flex-vCentered-hSpaced-children();
+	@include u.flex-vCentered-hSpaced-children();
 	// margin-bottom: $standard-spacing;
 	flex-wrap: wrap;
 	.button,

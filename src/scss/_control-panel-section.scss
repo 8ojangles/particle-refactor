@@ -1,75 +1,77 @@
 @use 'sass:math';
+@use '_variables' as v;
+@use '_utils' as u;
 
 .control--panel__section {
     position: relative;
-    margin-bottom: $standard-spacing;
-    // padding-top: $large-spacing;
+    margin-bottom: v.$standard-spacing;
+    // padding-top: v.$large-spacing;
     margin-left: 0;
     margin-right: 0;
 
     .panel--content {
-        padding-top: $standard-spacing * 3;
+        padding-top: v.$standard-spacing * 3;
         display: grid;
         grid-template-rows: 0fr;
-        transition: grid-template-rows $expander-transition-speed ease;
+        transition: grid-template-rows v.$expander-transition-speed ease;
         overflow: hidden;
         &:after {
             content: ' ';
             position: absolute;
-            width: $lip-glint-width;
-            height: $lip-glint-height;
-            left: $lip-glint-x;
+            width: v.$lip-glint-width;
+            height: v.$lip-glint-height;
+            left: v.$lip-glint-x;
             bottom: -3px;
             opacity: 0.2;
             border-radius: 0 0 50% 50%;
-            @include lip-glint-gradient();
+            @include u.lip-glint-gradient();
             transition: opacity 0.5s ease;
         }
 
-        // background-color: darken( $blue-medium, 30% );
+        // background-color: darken( v.$blue-medium, 30% );
     }
 
     header {
         position: absolute;
         width: 100%;
         top: 0;
-        @include flex-vCentered-hSpaced-children();
-        // background-color: darken( $blue-medium, 40% );
+        @include u.flex-vCentered-hSpaced-children();
+        // background-color: darken( v.$blue-medium, 40% );
         margin-left: 0;
         margin-right: 0;
         padding-right: 1.5rem;
         padding-left: 1.5rem;
-        color: $blue-medium;
+        color: v.$blue-medium;
         font-size: 90%;
 
         &:after {
             content: ' ';
             position: absolute;
-            width: $lip-shade-width;
-            height: $lip-shade-height;
-            left: $lip-shade-x;
+            width: v.$lip-shade-width;
+            height: v.$lip-shade-height;
+            left: v.$lip-shade-x;
             bottom: 0;
             opacity: 1;
             border-radius: 0 0 50% 50%;
-            @include lip-shade-gradient();
-            transition: opacity 0.5s ease;
+            @include u.lip-shade-gradient();
+            transition: opacity 0.4s ease;
         }
 
         .section-title {
-            padding: $standard-spacing $standard-spacing $standard-spacing $smaller-spacing;
+            padding: v.$standard-spacing v.$standard-spacing v.$standard-spacing v.$smaller-spacing;
             text-align: left;
         }
 
         .section-toggle {
-            padding: $small-spacing;
+            padding: v.$small-spacing;
             border: none;
             width: 30px;
             cursor: pointer;
             background-color: transparent;
-            color: $control-panel-item-header-color;
+            color: v.$control-panel-item-header-color;
             font-size: 1.5rem;
             line-height: 0.7;
-            @include flex-centered-children();
+            @include u.flex-centered-children();
 
             &:focus {
                 outline: none;
@@ -87,10 +89,10 @@
 
         &:hover {
             cursor: pointer;
-            color: lighten( $blue-medium, 20% );
+            color: lighten( v.$blue-medium, 20% );
 
             .section-toggle {
-                color: lighten( $blue-medium, 20% );
+                color: lighten( v.$blue-medium, 20% );
             }
         }
         
@@ -99,7 +101,7 @@
     &.is-active {
 
         header {
-            color: $control-panel-item-header-color-active;
+            color: v.$control-panel-item-header-color-active;
             &:before {
                 opacity: 1;
             }
@@ -110,7 +112,7 @@
         }
 
         .section-toggle {
-            color: $control-panel-item-header-color-active;
+            color: v.$control-panel-item-header-color-active;
         }
         .toggle-icon {
             transform: scale( 0.5, -0.5 );
@@ -125,10 +127,10 @@
         
         header {
             &:hover {
-                color: $control-panel-item-header-color-active-hover;
+                color: v.$control-panel-item-header-color-active-hover;
                 
                 .section-toggle {
-                    color: $control-panel-item-header-color-active-hover;
+                    color: v.$control-panel-item-header-color-active-hover;
                 }
             }
         }		
@@ -157,8 +159,8 @@ fieldset {
         position: absolute;
         width: 90%;
         z-index: 20;
-        height: math.div($large-spacing, 1.3);
-        top: math.div(-$large-spacing, 1.3);
+        height: math.div(v.$large-spacing, 1.3);
+        top: math.div(-(v.$large-spacing), 1.3);
         left: 5%;
         border-radius: 50%;
         box-shadow: 0 10px 20px rgba( 0,0,0,0.7 );
@@ -170,9 +172,9 @@ fieldset {
         position: absolute;
         z-index: 20;
         width: 100%;
-        height: $large-spacing;
+        height: v.$large-spacing;
         left: 0;
-        bottom: -$large-spacing;
+        bottom: -(v.$large-spacing);
         border-radius: 50%;
         box-shadow: 0 -3px 7px rgba( 0,0,0,0.5 );
         transition: opacity 0.5s ease;
@@ -189,7 +191,7 @@ fieldset {
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
-        padding: $large-spacing $standard-spacing $large-spacing 0;
+        padding: v.$large-spacing v.$standard-spacing v.$large-spacing 0;
         margin: 0;
         z-index: 10;
         // justify-content: center;
@@ -226,14 +228,14 @@ fieldset {
                 line-height: 1.25rem;
                 height: 1.25rem;
                 width: 60%;
-                color: lighten( $blue-medium, 40% );
+                color: lighten( v.$blue-medium, 40% );
                 margin-top: 0.4rem;
                 padding-top: 0;
                 padding-bottom: 0;
                 text-align: right;
 
                 &:focus {
-                    color: $hex-white;
+                    color: v.$hex-white;
                     outline: none;
                 }
             }
@@ -244,20 +246,20 @@ fieldset {
             align-items: center;
             justify-content: center;
             width: 100%;
-            background: darken( $blue-medium, 20% );
-            color: lighten( $blue-medium, 40% );
+            background: darken( v.$blue-medium, 20% );
+            color: lighten( v.$blue-medium, 40% );
             border: 0;
             font-size: 0.9rem;
             transition: all 0.5s ease;
             &:hover {
                 cursor: pointer;
                 transition: all 0s ease;
-                background: darken( $blue-medium, 10% );
-                color: lighten( $blue-medium, 60% );
+                background: darken( v.$blue-medium, 10% );
+                color: lighten( v.$blue-medium, 60% );
             }
             &.is-active {
-                background: $blue-medium;
-                color: $hex-white;
+                background: v.$blue-medium;
+                color: v.$hex-white;
             }
 
             &.no-bg {
@@ -274,8 +276,8 @@ fieldset {
     }
 
     hr {
-        background-color: darken( $blue-medium, 45% );
-        margin: $standard-spacing 0 0 0;
+        background-color: darken( v.$blue-medium, 45% );
+        margin: v.$standard-spacing 0 0 0;
         width: 100%;
         height: 1px;
         border: none;

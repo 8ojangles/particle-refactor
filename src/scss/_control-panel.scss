@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use '_variables' as v;
+@use '_utils' as u;
 
 .control--panel {
 	position: absolute;
@@ -7,22 +9,22 @@
 	width: 30%;
 	top: 0;
 	right: 0;
-	padding-top: $large-spacing * 1.5;
+	padding-top: v.$large-spacing * 1.5;
 	overflow: hidden;
-	z-index: $z-50;
-	background-color: $cp-bg-color;
-	color: $hex-white;
+	z-index: v.$z-50;
+	background-color: v.$cp-bg-color;
+	color: v.$hex-white;
 	transition: all 2s ease-out;
 
 	&:before {
 		content: ' ';
 		position: absolute;
-		@include full-width-height();
+		@include u.full-width-height();
 		left: 0;
 		top: 0;
 		opacity: 0.3;
 		pointer-events: none;
-		@include blue-glow-radial-gradient();
+		@include u.blue-glow-radial-gradient();
 	}
 
 	.info--row p {

@@ -1,18 +1,20 @@
-$range-color-dark: $blue-medium;
-$range-color-light: lighten( $blue-medium, 30% );
+@use '_variables' as v;
+
+$range-color-dark: v.$blue-medium;
+$range-color-light: lighten( v.$blue-medium, 30% );
 
 $range-thumb-radius: 20px;
 $range-track-height: 5px;
 
 $range-thumb-border: none;
-$range-thumb-color: $blue-medium;
-$range-thumb-color-focus: lighten( $blue-medium, 20% );
+$range-thumb-color: v.$blue-medium;
+$range-thumb-color-focus: lighten( v.$blue-medium, 20% );
 
 $range-thumb-shadow-1: 0px 3px 10px 0 rgba(0, 0, 0, 1);
 $range-thumb-shadow-2: 0px 3px 10px 0 rgba(13, 13, 13, 0);
 
 
-$range-track-color: darken( $blue-medium, 45% );
+$range-track-color: darken( v.$blue-medium, 45% );
 
 
 

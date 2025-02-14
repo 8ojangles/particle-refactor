@@ -1,35 +1,38 @@
+@use '_variables' as v;
+@use '_utils' as u;
+
 .control--panel__header {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: $large-spacing * 2;
+    height: v.$large-spacing * 2;
     display: flex;
     justify-content: center;
 
     &:before {
         content: ' ';
         position: absolute;
-        width: $lip-shade-width;
-        height: $lip-shade-height;
-        left: $lip-shade-x;
+        width: v.$lip-shade-width;
+        height: v.$lip-shade-height;
+        left: v.$lip-shade-x;
         bottom: 0;
         opacity: 1;
         border-radius: 0 0 50% 50%;
-        @include lip-shade-gradient();
+        @include u.lip-shade-gradient();
         transition: opacity 0.5s ease;
     }
 
     &:after {
         content: ' ';
         position: absolute;
-        width: $lip-glint-width;
-        height: $lip-glint-height;
-        left: $lip-glint-x;
+        width: v.$lip-glint-width;
+        height: v.$lip-glint-height;
+        left: v.$lip-glint-x;
         bottom: -3px;
         opacity: 0.2;
         border-radius: 0 0 50% 50%;
-        @include lip-glint-gradient();
+        @include u.lip-glint-gradient();
         transition: opacity 0.5s ease;
     }
 
@@ -37,10 +40,10 @@
         width: 50%;
         padding: 0;
         margin: 0;
-        // background-color: darken( $blue-medium, 50% );
+        // background-color: darken( v.$blue-medium, 50% );
         background-color: transparent;
         border: none;
-        color: $blue-medium;
+        color: v.$blue-medium;
         cursor: pointer;
         &:focus {
             outline: none;
@@ -48,9 +51,9 @@
         outline: none;
         &.is-active {
             cursor: default;
-            color: $theme-orange;
+            color: v.$theme-orange;
             background-color: transparent;
-            // background-color: darken( $blue-medium, 40% );
+            // background-color: darken( v.$blue-medium, 40% );
         }
     }
 }

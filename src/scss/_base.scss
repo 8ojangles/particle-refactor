@@ -1,3 +1,5 @@
+@use '_variables' as v;
+
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
   box-sizing: border-box;
@@ -43,15 +45,15 @@ body {
 }
 
 #corona-layer {
-	z-index: $z-10;
+	z-index: v.$z-10;
 }
 
 #face-layer {
-	z-index: $z-20;
+	z-index: v.$z-20;
 }
 
 #flare-layer {
-	z-index: $z-30;
+	z-index: v.$z-30;
 }
 
 
@@ -62,7 +64,7 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: $z-70;
+	z-index: v.$z-70;
 	background-color: black;
 	opacity: 0.1;
 	overflow: auto;
