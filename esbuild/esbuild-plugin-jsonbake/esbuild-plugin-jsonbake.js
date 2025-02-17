@@ -18,14 +18,23 @@ const jsonbakePlugin = (opts) => ({
     name: 'jasonbake',
     setup(build) {
         const { files } = opts;
-
+        console.log('jsonbake opts: ', opts);
         const options = {
             ...defaultOptions,
             ...opts
         };
 
+        build.onResolve({ filter: /\.(json)$/ }, async () => {
+            const result = await build.resolve();
+            console.log('jsonbake onResolve result: ', result);
+            return result;
+        });
+
         build.onLoad({ filter: /\.(json)$/ }, (args) => {
             // Merge user options with default options, without defaultIncludeFiles
+
+            console.log('jsonbake args: ', args);
+
             if (args.path.includes('partials')) {
                 return;
             }

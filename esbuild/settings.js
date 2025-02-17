@@ -8,6 +8,7 @@ import { copy } from 'esbuild-plugin-copy';
 
 export function createBuildSettings(options) {
     return {
+        metafile: true,
         logLevel: "info",
         entryPoints: [
             ...entryPoints.js,

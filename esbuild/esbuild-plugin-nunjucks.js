@@ -13,6 +13,7 @@ const reportNunjucksWriteFileOp = (err, file) => {
 const nunjucksPlugin = (options) => ({
     name: 'nunjucks',
     setup(build) {
+        console.log('nunjucks build: ', build);
         const { pageDir, templateDir, dataFile, outputDir } = options;
         // const env = new nunjucks.Environment(
         //     new nunjucks.FileSystemLoader('src'),
@@ -32,6 +33,8 @@ const nunjucksPlugin = (options) => ({
         );
 
         build.onLoad({ filter: /\.(html|njk|json)$/ }, async (args) => {
+
+            console.log('nunjucks args: ', args);
 
             const tplFolder = templateDir.split('/').pop();
             if (args.path.includes(tplFolder)) {
