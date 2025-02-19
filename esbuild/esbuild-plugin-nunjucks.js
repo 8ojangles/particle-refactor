@@ -3,6 +3,25 @@ import fs from 'node:fs';
 import { checkFile, parseFile, reportWriteFileOp } from './esbuild-plugin-jsonbake/utils.js';
 import { defaultIncludeFiles } from './esbuild-plugin-jsonbake/config.js';
 
+export const nunjucksFilePathConfig = {
+    outputDir: './dist',
+    pageDir: './src/templates/pages',
+    templateDir: './src/templates',
+    dataFile: {
+        src: './src/content-data/content-data.json',
+        dest: './src/content-data/content-data-compiled.json',
+        files: './src/content-data/partials/**/*.json'
+    }
+}
+
+export const nunjucksConfig = {
+    outputDir: nunjucksFilePathConfig.outputDir,
+    pageDir: nunjucksFilePathConfig.pageDir,
+    templateDir: nunjucksFilePathConfig.templateDir,
+    dataFile: nunjucksFilePathConfig.dataFile
+}
+
+
 const jbDefaultOptions = {
     stripComments: false,
     indentation: "\t",

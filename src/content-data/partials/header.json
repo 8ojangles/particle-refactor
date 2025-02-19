@@ -1,4 +1,4 @@
 { 
-    "headerText1": "We have data in a JSON file which we are importing. And hopefully watching. Still working?. Test run for code splitting. Code split 2. handle write operation test. Checking for build. And Now? Checking opts. Checking metafile. Some stuff more, more, singlefile test again, i think it's working, and now? Partial test. now? checking for unneccessary render, now, now, now, ooo?",
+    "headerText1": "We have data in a JSON file which we are importing. And hopefully watching. Still working?. Test run for code splitting. Code split 2. handle write operation test. Checking for build. And Now? Checking opts. Checking metafile. Some stuff more, more, singlefile test again, i think it's working, and now. Across multiple pages? Quick test. now with browser connected?",
     "nestedPartial": "{{nestedHeader.json}}"
 }

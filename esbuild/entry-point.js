@@ -1,3 +1,5 @@
+import { nunjucksFilePathConfig } from './esbuild-plugin-nunjucks.js';
+
 const entryPoints = {
     js: ['./src/js/entry.js', './src/js/liveReload.js'],
     scss: ['./src/scss/main.scss'],
@@ -5,8 +7,8 @@ const entryPoints = {
         './src/templates/**/*.html'
     ],
     contentData: [
-        './src/content-data/content-data.json',
-        './src/content-data/partials/**/*.json'
+        nunjucksFilePathConfig.dataFile.src,
+        nunjucksFilePathConfig.dataFile.files
     ],
 }
 
