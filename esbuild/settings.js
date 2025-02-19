@@ -14,7 +14,7 @@ export function createBuildSettings(options) {
             ...entryPoints.js,
             ...entryPoints.scss,
             ...entryPoints.html,
-            ...entryPoints.pageData
+            ...entryPoints.contentData
         ],
         outdir: './dist/',
         bundle: true,
@@ -40,21 +40,24 @@ export function createBuildSettings(options) {
                     './dist/*.js',
                     './dist/*.map',
                     './dist/templates',
-                    './dist/page-data',
+                    './dist/content-data',
                     './dist/*.png',
                 ]
             }),
-            jsonbakePlugin({
-                files: [{
-                    src: './src/page-data/page-data.json',
-                    dest: './src/site-content-compiled.json'
-                }]
-            }),
+            // jsonbakePlugin({
+            //     files: [{
+            //         src: './src/page-data/page-data.json',
+            //         dest: './src/site-content-compiled.json'
+            //     }]
+            // }),
             nunjucksPlugin({
                 outputDir: './dist',
-                pageDir: './src',
+                pageDir: './src/templates/pages',
                 templateDir: './src/templates',
-                dataFile: './src/site-content-compiled.json'
+                dataFile: {
+                    src: './src/content-data/content-data.json',
+                    dest: './src/content-data/content-data-compiled.json'
+                }
             }),
             sassPlugin(),
             copy({

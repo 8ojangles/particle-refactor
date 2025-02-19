@@ -6,7 +6,7 @@ import { presetThemeNames } from './themeUtils.js';
 import { initialiseUI, setParticlePreset } from './ui/ui.js';
 import { displayDebugging, logger } from './debugUtils.js';
 import { stores as mainStore } from './stores/stores.js';
-
+// does this work
 const { runtimeEngine } = environment;
 const { startAnimation, stopAnimation } = runtimeEngine;
 

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/js/liveReload.js"],
+  "sourcesContent": ["new EventSource('/esbuild').addEventListener('change', e => {\r\n    const { added, removed, updated } = JSON.parse(e.data)\r\n\r\n    if (!added.length && !removed.length && updated.length === 1) {\r\n        for (const link of document.getElementsByTagName(\"link\")) {\r\n        const url = new URL(link.href)\r\n\r\n            if (url.host === location.host && url.pathname === updated[0]) {\r\n                const next = link.cloneNode()\r\n                next.href = updated[0] + '?' + Math.random().toString(36).slice(2)\r\n                next.onload = () => link.remove()\r\n                link.parentNode.insertBefore(next, link.nextSibling)\r\n                return\r\n            }\r\n        }\r\n    }\r\n\r\n    location.reload()\r\n});"],
+  "mappings": "MAAA,IAAI,YAAY,UAAU,EAAE,iBAAiB,SAAUA,GAAK,CACxD,GAAM,CAAE,MAAAC,EAAO,QAAAC,EAAS,QAAAC,CAAQ,EAAI,KAAK,MAAMH,EAAE,IAAI,EAErD,GAAI,CAACC,EAAM,QAAU,CAACC,EAAQ,QAAUC,EAAQ,SAAW,EACvD,QAAWC,KAAQ,SAAS,qBAAqB,MAAM,EAAG,CAC1D,IAAMC,EAAM,IAAI,IAAID,EAAK,IAAI,EAEzB,GAAIC,EAAI,OAAS,SAAS,MAAQA,EAAI,WAAaF,EAAQ,CAAC,EAAG,CAC3D,IAAMG,EAAOF,EAAK,UAAU,EAC5BE,EAAK,KAAOH,EAAQ,CAAC,EAAI,IAAM,KAAK,OAAO,EAAE,SAAS,EAAE,EAAE,MAAM,CAAC,EACjEG,EAAK,OAAS,IAAMF,EAAK,OAAO,EAChCA,EAAK,WAAW,aAAaE,EAAMF,EAAK,WAAW,EACnD,MACJ,CACJ,CAGJ,SAAS,OAAO,CACpB,CAAC",
+  "names": ["e", "added", "removed", "updated", "link", "url", "next"]
+}
